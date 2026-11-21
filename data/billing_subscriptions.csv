@@ -1,0 +1,19 @@
+billing_customer_id,billing_customer_name,billing_domain,crm_account_id,plan,seats,mrr_usd,status,current_period_end
+BIL-501,Halvorsen Freight AS,halvorsenfreight.example,ACC-001,Pro,20,4000,active,2027-03-01
+BIL-502,Brightpath Learning Inc,brightpathlearning.example,ACC-002,Pro,30,3000,active,2026-12-20
+BIL-503,Quillon Health,quillonhealth.example,ACC-003,Enterprise,25,7500,active,2027-02-15
+BIL-504,Marlowe Analytics Ltd,marloweanalytics.example,ACC-004,Pro,15,2000,active,2027-05-10
+BIL-505,Tessel Inc.,tessel.example,,Pro,12,2500,active,2027-02-15
+BIL-506,Corvid Retail Group,corvidretail.example,ACC-006,Enterprise,40,6000,active,2027-06-30
+BIL-507,Corvid Outdoor LLC,corvidoutdoor.example,ACC-007,Starter,5,750,active,2027-01-31
+BIL-509,Pellucid Bank,pellucidbank.example,ACC-009,Pro,10,0,canceled,2025-12-01
+BIL-510,Ostrava Robotics s.r.o.,ostrava-robotics.example,ACC-010,Starter,8,1000,active,2027-04-01
+BIL-511,Kestrel Payments,kestrelpay.example,ACC-011,Pro,25,3500,active,2027-08-01
+BIL-513,Sable Insurance,sableinsurance.example,ACC-013,Pro,20,2500,active,2027-03-20
+BIL-514,Arbor Civic,arborcivic.example,ACC-014,Starter,10,833.33,active,2027-02-28
+BIL-515,Gantry Cloud,gantrycloud.example,ACC-015,Pro,15,2333.33,active,2027-05-31
+BIL-518,Pinecrest Dental Group,pinecrestdental.example,ACC-018,Starter,5,666.67,active,2027-07-01
+BIL-520,Halcyon Travel,halcyontravel.example,ACC-020,Pro,30,2000,active,2026-11-30
+BIL-521,Brisk Mobility,briskmobility.example,ACC-021,Starter,10,1000,active,2027-10-19
+BIL-522,Juniper Row,juniperrow.example,ACC-022,Starter,5,625,active,2027-01-05
+BIL-525,Fenwick Labs Ltd,fenwicklabs.example,ACC-025,Starter,8,800,active,2027-10-01

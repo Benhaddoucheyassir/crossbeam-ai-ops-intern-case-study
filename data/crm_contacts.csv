@@ -1,0 +1,37 @@
+contact_id,account_id,first_name,last_name,email,title,is_primary,left_company,last_activity_date,created_date,created_by_source
+CON-0101,ACC-001,Hanne,Solberg,hanne.solberg@halvorsenfreight.example,Head of Partnerships,true,false,2026-11-04,2024-11-02,sales
+CON-0102,ACC-001,Mats,Ekdahl,mats.ekdahl@halvorsenfreight.example,Partner Manager,false,false,2026-10-21,2025-03-01,sales
+CON-0201,ACC-002,Gwen,Ashby,gwen.ashby@brightpathlearning.example,Director of Partnerships,true,false,2026-07-18,2024-06-11,sales
+CON-0202,ACC-002,Rafael,Ibarra,rafael.ibarra@brightpathlearning.example,CFO,false,false,2026-10-30,2026-10-30,gong
+CON-0301,ACC-003,Lena,Fairbanks,lena.fairbanks@quillonhealth.example,VP Alliances,true,false,2026-10-02,2023-10-05,sales
+CON-0302,ACC-003,Omar,Haddad,omar.haddad@quillonhealth.example,Partner Ops Manager,false,false,2026-09-12,2025-02-15,sales
+CON-0401,ACC-004,Nell,Brannigan,nell.brannigan@marloweanalytics.example,Head of Channel,true,false,2026-08-20,2023-04-18,sales
+CON-0501,ACC-005,Victor,Albescu,victor.albescu@tessellate.example,Partnerships Lead,true,false,2026-05-14,2024-01-22,sales
+CON-0502,ACC-005,Ama,Owusu,ama.owusu@tessel.example,RevOps Manager,false,false,2026-10-08,2026-10-08,gong
+CON-0601,ACC-006,Carmen,Velasco,carmen.velasco@corvidretail.example,SVP Partnerships,true,false,2026-10-28,2023-08-09,sales
+CON-0602,ACC-006,Ian,Whitlock,ian.whitlock@corvidretail.example,Alliances Manager,false,false,2026-09-30,2024-01-10,sales
+CON-0701,ACC-007,Petra,Lind,petra.lind@corvidoutdoor.example,Ecommerce Partnerships,true,false,2026-09-05,2025-11-14,sales
+CON-0801,ACC-008,Carmen,Velasco,carmen.velasco@corvidretail.example,SVP Partnerships,false,false,2026-11-10,2026-09-08,list_import
+CON-0802,ACC-008,Ian,Whitlock,ian.whitlock@corvidretail.example,Alliances Manager,false,false,2026-11-10,2026-09-08,list_import
+CON-0901,ACC-009,Morgan,Lindqvist,morgan.lindqvist@pellucidbank.example,Head of Partnerships,true,true,2025-05-20,2023-07-30,sales
+CON-1001,ACC-010,Tomas,Dvorak,tomas.dvorak@ostrava-robotics.example,Channel Manager,true,false,2026-10-15,2025-12-03,sales
+CON-1101,ACC-011,Lucia,Ferrante,lucia.ferrante@kestrelpay.example,Director of Partnerships,true,false,2026-11-06,2024-05-27,sales
+CON-1102,ACC-011,Ben,Okoro,ben.okoro@kestrelpay.example,Partner Marketing Manager,false,false,2026-10-01,2025-08-01,sales
+CON-1301,ACC-013,Dana,Okafor,dana.okafor@sableinsurance.example,Partnerships Director,true,false,2026-08-25,2024-02-14,sales
+CON-1401,ACC-014,Priya,Nair,priya.nair@arborcivic.example,Partnerships Manager,true,false,2026-11-02,2024-08-19,sales
+CON-1402,ACC-014,P.,Nair,pnair@arborcivic.example,,false,false,2026-10-19,2026-03-11,gong
+CON-1501,ACC-015,Hugo,Brandt,hugo.brandt@gantrycloud.example,VP Partnerships,true,false,2026-10-24,2024-04-02,sales
+CON-1801,ACC-018,Ruth,Calloway,ruth.calloway@pinecrestdental.example,Operations Director,true,false,2026-10-11,2025-03-15,sales
+CON-2001,ACC-020,Ilse,Brouwer,ilse.brouwer@halcyontravel.example,Head of Partnerships,true,false,2026-10-27,2024-07-07,sales
+CON-2101,ACC-021,Noah,Gallo,noah.gallo@briskmobility.example,Partnerships Manager,true,false,2026-11-11,2026-08-21,sales
+CON-2201,ACC-022,Eva,Sorensen,eva.sorensen@juniperrow.example,Founder,true,false,2026-01-05,2025-10-28,sales
+CON-2401,ACC-024,Ruth,Calloway,ruth.calloway@pinecrestdental.example,Operations Director,false,false,2025-02-02,2025-02-02,list_import
+CON-0402,ACC-004,Theo,Grant,theo.grant@marloweanalytics.example,Partner Manager,false,false,2026-10-30,2025-06-01,sales
+CON-0702,ACC-007,Jonas,Berg,jonas.berg@corvidoutdoor.example,Marketing Operations Manager,false,false,2026-10-12,2025-06-01,sales
+CON-1002,ACC-010,Klara,Novak,klara.novak@ostrava-robotics.example,Head of Sales,false,false,2026-09-22,2025-06-01,sales
+CON-1502,ACC-015,Mei,Tanaka,mei.tanaka@gantrycloud.example,Partner Operations Manager,false,false,2026-10-24,2025-06-01,sales
+CON-1802,ACC-018,Dev,Patel,dev.patel@pinecrestdental.example,Office Systems Manager,false,false,2026-10-11,2025-06-01,sales
+CON-2002,ACC-020,Ruben,Vos,ruben.vos@halcyontravel.example,Finance Manager,false,false,2026-10-27,2025-06-01,sales
+CON-2102,ACC-021,Lea,Martin,lea.martin@briskmobility.example,RevOps Lead,false,false,2026-11-11,2026-11-11,sales
+CON-2501,ACC-025,Iris,Moreau,iris.moreau@fenwicklabs.example,Head of Partnerships,true,false,2026-09-30,2026-09-30,sales
+CON-2502,ACC-025,Kai,Lindgren,kai.lindgren@fenwicklabs.example,Partner Operations Lead,false,false,2026-09-30,2026-09-30,sales

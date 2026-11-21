@@ -1,0 +1,22 @@
+org_id,org_name,domain,created_at,verification_status,is_dormant,plan_tier,parent_org_id,active_users_2026_08,active_users_2026_09,active_users_2026_10,partners_connected,partners_with_overlaps,data_source_connected,add_seat_clicks_90d
+ORG-1001,Halvorsen Freight,halvorsenfreight.example,2024-11-20,verified,false,pro,,16,17,18,15,13,true,5
+ORG-1002,Brightpath,brightpathlearning.example,2024-06-30,verified,false,pro,,11,7,4,3,2,true,0
+ORG-1003,Quillon Health,quillonhealth.example,2024-02-12,verified,false,enterprise,,14,15,15,12,10,true,0
+ORG-1031,Quillon Marketing,quillonhealth.example,2026-06-03,pending,false,free,,9,12,14,6,5,true,0
+ORG-1004,Marlowe Analytics,marloweanalytics.example,2023-05-02,failed,true,pro,,0,0,0,0,0,false,0
+ORG-1041,Marlowe Analytics,marloweanalytics.example,2026-08-14,verified,false,pro,,4,9,11,8,7,true,0
+ORG-1005,Tessel,tessel.example,2024-02-10,verified,false,pro,,9,9,10,7,6,true,0
+ORG-1006,Corvid Retail Group,corvidretail.example,2023-09-01,verified,false,enterprise,,27,28,28,23,21,true,0
+ORG-1007,Corvid Outdoor,corvidoutdoor.example,2025-12-02,verified,false,starter,,3,4,4,3,2,true,0
+ORG-1009,Pellucid Bank,pellucidbank.example,2023-08-14,verified,true,free,,0,0,0,0,0,false,0
+ORG-1010,Ostrava Robotics,ostrava-robotics.example,2026-03-12,verified,false,starter,,5,6,6,4,3,true,0
+ORG-1011,Kestrel Payments,kestrelpay.example,2024-06-10,verified,false,pro,,20,21,21,18,16,true,9
+ORG-1013,Sable Insurance,sableinsurance.example,2024-03-01,verified,false,pro,,13,13,12,8,7,true,0
+ORG-1014,Arbor Civic,arborcivic.example,2024-09-02,verified,false,starter,,3,3,3,2,1,true,0
+ORG-1015,Gantry Cloud,gantrycloud.example,2024-04-20,verified,false,pro,,9,9,9,9,0,false,0
+ORG-1018,Pinecrest Dental,pinecrestdental.example,2025-03-20,verified,false,starter,,4,4,4,3,0,false,0
+ORG-1020,Halcyon Travel,halcyontravel.example,2024-07-20,verified,false,pro,,16,16,16,10,9,true,0
+ORG-1021,Brisk Mobility,briskmobility.example,2026-10-21,verified,false,starter,,0,0,3,1,0,false,0
+ORG-1022,Juniper Row,juniperrow.example,2026-01-06,verified,false,starter,,0,0,0,0,0,false,0
+ORG-1030,Vantor Logistics,vantor.example,2026-07-19,verified,false,free,,4,7,9,6,5,true,0
+ORG-1032,Jess's workspace,gmail.com,2026-09-02,pending,false,free,,0,1,0,0,0,false,0

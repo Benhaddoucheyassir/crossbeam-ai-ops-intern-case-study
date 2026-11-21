@@ -1,0 +1,25 @@
+activity_id,activity_date,source,account_id,contact_email,direction,subject,summary,bounced,logged_by
+ACT-0001,2026-11-04,gong,ACC-001,hanne.solberg@halvorsenfreight.example,meeting,QBR,Team is growing fast; two new partner managers start in December and need seats. Asked how to add seats mid-term.,false,Sam Ortega
+ACT-0002,2026-07-18,gong,ACC-002,gwen.ashby@brightpathlearning.example,meeting,Check-in,Gwen says partner program is paused while they restructure. Usage expected to dip over summer.,false,Sam Ortega
+ACT-0003,2026-10-30,gong,ACC-002,rafael.ibarra@brightpathlearning.example,meeting,Renewal intro,CFO joined for the first time. Running a tools consolidation review before any renewal. Wants to see value in numbers by early December.,false,Sam Ortega
+ACT-0004,2026-10-02,gong,ACC-003,lena.fairbanks@quillonhealth.example,meeting,Exec sync,Lena mentioned the marketing team 'started their own workspace' for co-marketing lists. She was not sure who owns it.,false,Sam Ortega
+ACT-0005,2026-08-20,email,ACC-004,nell.brannigan@marloweanalytics.example,inbound,Workspace deleted by mistake,Our old admin deleted the workspace and its data during offboarding. We created a new one on 14 Aug and reconnected our CRM. Can you make sure our contract still applies?,false,Sam Ortega
+ACT-0006,2026-05-14,email,ACC-005,victor.albescu@tessellate.example,outbound,Checking in,No reply.,false,Sam Ortega
+ACT-0007,2026-07-02,email,ACC-005,victor.albescu@tessellate.example,outbound,Q3 roadmap,Auto-reply: Tessellate is now Tessel. Please update my address to victor.albescu@tessel.example.,false,Sam Ortega
+ACT-0008,2026-10-08,gong,,ama.owusu@tessel.example,meeting,Tessel x onboarding refresh,Ama took over admin. Asked why their success manager never reaches out. Interested in the partner attribution report.,false,unassigned
+ACT-0009,2026-10-28,gong,ACC-006,carmen.velasco@corvidretail.example,meeting,Partner strategy,Corvid plans to roll out co-selling to the Outdoor subsidiary team. Outdoor has its own contract and budget.,false,Sam Ortega
+ACT-0010,2026-11-10,email,ACC-008,carmen.velasco@corvidretail.example,outbound,Is your partner team flying blind?,Cold sequence step 1 sent by BD.,false,Riley Chen
+ACT-0011,2026-11-10,email,ACC-008,ian.whitlock@corvidretail.example,outbound,Is your partner team flying blind?,Cold sequence step 1 sent by BD.,false,Riley Chen
+ACT-0012,2026-11-12,email,ACC-008,carmen.velasco@corvidretail.example,inbound,Re: Is your partner team flying blind?,"We are already a customer, please take me off this list.",false,Riley Chen
+ACT-0013,2026-10-15,gong,ACC-010,tomas.dvorak@ostrava-robotics.example,meeting,Onboarding check,"Usage steady, wants help mapping two new resellers.",false,Sam Ortega
+ACT-0014,2026-11-06,gong,ACC-011,lucia.ferrante@kestrelpay.example,meeting,Monthly sync,Several reps asked for access and are waiting. Lucia assumed they had seats left.,false,Sam Ortega
+ACT-0015,2026-10-14,email,ACC-013,dana.okafor@sableinsurance.example,outbound,Renewal planning,Hard bounce: mailbox does not exist.,true,Sam Ortega
+ACT-0016,2026-10-29,email,ACC-013,dana.okafor@sableinsurance.example,outbound,Following up,Hard bounce: mailbox does not exist.,true,Sam Ortega
+ACT-0017,2026-11-02,gong,ACC-014,priya.nair@arborcivic.example,meeting,Check-in,Priya is the only person driving the program; asked for help getting sales leadership involved.,false,Sam Ortega
+ACT-0018,2026-10-19,gong,ACC-014,pnair@arborcivic.example,meeting,Report review,Priya walked through the overlap report. No one else from Arbor attended.,false,Sam Ortega
+ACT-0019,2026-10-24,gong,ACC-015,hugo.brandt@gantrycloud.example,meeting,Value review,Hugo frustrated: 'we connected nine partners and see nothing'. Wants to add more partners.,false,Sam Ortega
+ACT-0020,2026-10-11,gong,ACC-018,ruth.calloway@pinecrestdental.example,meeting,Check-in,Ruth is happy with the product. She says they connected their CRM last month and their three partners are set up. No changes planned.,false,Sam Ortega
+ACT-0021,2026-10-27,gong,ACC-020,ilse.brouwer@halcyontravel.example,meeting,Mid-term review,Ilse reminded us they downgraded to 30 seats in June. Asked why the invoice is right but our renewal quote mentions 50.,false,Sam Ortega
+ACT-0022,2026-11-11,gong,ACC-021,noah.gallo@briskmobility.example,meeting,Kickoff,"Kickoff done. CRM connection planned for next week, then they invite the sales team.",false,Sam Ortega
+ACT-0023,2026-01-05,email,ACC-022,eva.sorensen@juniperrow.example,inbound,Signed,Signed. Will get the team started after our busy season.,false,Sam Ortega
+ACT-0024,2026-09-30,email,ACC-025,iris.moreau@fenwicklabs.example,outbound,Contract signed,Contract countersigned for 8 Starter seats from 1 October. Iris will be the admin. Kickoff to be booked once the team is set up.,false,Sam Ortega
