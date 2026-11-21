@@ -1,0 +1,58 @@
+{
+  "snapshot_date": "2026-11-16",
+  "total_active_customers": 17,
+  "critical_alerts": 2,
+  "expansion_opportunities": 2,
+  "top_accounts": [
+    {
+      "billing_customer_name": "Brightpath Learning Inc",
+      "priority_score": "CRITICAL",
+      "days_to_renewal": 34
+    },
+    {
+      "billing_customer_name": "Juniper Row",
+      "priority_score": "CRITICAL",
+      "days_to_renewal": 50
+    },
+    {
+      "billing_customer_name": "Halvorsen Freight AS",
+      "priority_score": "HIGH (Expansion)",
+      "days_to_renewal": 105
+    },
+    {
+      "billing_customer_name": "Kestrel Payments",
+      "priority_score": "HIGH (Expansion)",
+      "days_to_renewal": 258
+    },
+    {
+      "billing_customer_name": "Sable Insurance",
+      "priority_score": "HIGH (Contact Hygiene)",
+      "days_to_renewal": 124
+    },
+    {
+      "billing_customer_name": "Halcyon Travel",
+      "priority_score": "LOW",
+      "days_to_renewal": 14
+    },
+    {
+      "billing_customer_name": "Corvid Outdoor LLC",
+      "priority_score": "LOW",
+      "days_to_renewal": 76
+    },
+    {
+      "billing_customer_name": "Quillon Health",
+      "priority_score": "LOW",
+      "days_to_renewal": 91
+    },
+    {
+      "billing_customer_name": "Tessel Inc.",
+      "priority_score": "LOW",
+      "days_to_renewal": 91
+    },
+    {
+      "billing_customer_name": "Arbor Civic",
+      "priority_score": "LOW",
+      "days_to_renewal": 104
+    }
+  ]
+}
