@@ -46,7 +46,17 @@ The Crossbeam AI Ops pipeline bridges Billing, CRM, and Product usage data into 
    - Automates DuckDB execution, compiles structured JSON/CSV outputs, and generates Sam's Monday briefing in Markdown.
 
 3. **Testing Framework (`tests/test_snapshot.py`)**:
-   - Automated `pytest` assertions verifying critical edge cases (e.g., Tessel's orphan billing, Marlowe Analytics workspace selection, Quillon Health shadow orgs, Sable Insurance contact hygiene).
+   - Automated `pytest` assertions verifying critical edge cases.
+
+## Test Questions & Expected Answers (Validation Suite)
+
+| Question / Case | Expected Outcome | Rationale |
+| :--- | :--- | :--- |
+| **How is Tessel handled?** | Present in Customer 360, `revops_missing_crm_link = true`. | Tessel has an active subscription but no linked CRM ID. We preserve the revenue record. |
+| **Which org is used for Marlowe?** | `ORG-1041` (Verified). | `ORG-1004` is failed/dormant. The pipeline must select the verified, active workspace. |
+| **Why is Brightpath CRITICAL?** | Renewal <= 90 days AND 13% seat utilization. | Classic churn risk: imminent renewal with low product adoption. |
+| **What about Halcyon Travel?** | `HIGH (Renewal + Seat Mismatch)`. | Renewal in 14 days with 30 vs 50 seat discrepancy between systems. |
+| **Is Pellucid Bank included?** | NO (Excluded). | Subscription status is 'canceled' in billing, even if present in CRM. |
 
 4. **Claude Skill (`claude_skill/SKILL.md`)**:
-   - Consumes `output/customer_360.json` and `output/monday_summary.json` to allow Sam to query specific accounts interactively without reading raw tables.
+   - Consumes `output/customer_360.json` and `output/monday_summary.json` to allow Sam to query specific accounts interactively.

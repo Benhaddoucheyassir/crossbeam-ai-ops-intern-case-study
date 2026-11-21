@@ -50,17 +50,24 @@ def run_pipeline(data_dir, snapshot_date, output_dir):
     bd_df = df[df['bd_no_contacts']]
     bd_df.to_csv(os.path.join(output_dir, 'bd_flags.csv'), index=False)
 
-    # Generate Sam's Monday Briefing
+    # Generate Sam's Monday Briefing (NO LIMIT on briefing rows)
     generate_monday_briefing(df, snapshot_date, output_dir)
 
 def generate_monday_briefing(df, snapshot_date, output_dir):
-    # Sort by priority
-    priority_order = {'CRITICAL': 0, 'HIGH (Expansion)': 1, 'HIGH (Contact Hygiene)': 2, 'MEDIUM': 3, 'LOW': 4}
+    # Sort by priority and days to renewal
+    priority_order = {
+        'CRITICAL': 0, 
+        'HIGH (Renewal + Seat Mismatch)': 1, 
+        'HIGH (Expansion)': 2, 
+        'HIGH (Contact Hygiene)': 3, 
+        'MEDIUM': 4, 
+        'LOW': 5
+    }
     df['priority_rank'] = df['priority_score'].map(priority_order)
     df = df.sort_values(by=['priority_rank', 'days_to_renewal'])
 
     briefing = f"# Sam's Monday Briefing - {snapshot_date}\n\n"
-    briefing += "## Top Accounts to Focus On\n\n"
+    briefing += "## All Priority Accounts Requiring Attention\n\n"
 
     for _, row in df.iterrows():
         if row['priority_score'] == 'LOW':
@@ -70,6 +77,8 @@ def generate_monday_briefing(df, snapshot_date, output_dir):
         briefing += f"- **Why:** "
         if row['priority_score'] == 'CRITICAL':
             briefing += f"Renewal in {row['days_to_renewal']} days with critical usage gap ({int(row['seat_utilization']*100)}% utilization)."
+        elif row['priority_score'] == 'HIGH (Renewal + Seat Mismatch)':
+            briefing += f"Imminent renewal in {row['days_to_renewal']} days (due {row['current_period_end']}) with Billing vs. CRM data mismatch (Billing: {row['billing_seats']} seats / ${row['billing_mrr']} MRR vs. CRM: {row['crm_seats']} seats / ${row['crm_arr']} ARR)."
         elif 'Expansion' in row['priority_score']:
             briefing += f"High seat demand ({row['total_demand']}) exceeding purchased seats ({row['billing_seats']})."
         elif 'Contact Hygiene' in row['priority_score']:
@@ -80,6 +89,8 @@ def generate_monday_briefing(df, snapshot_date, output_dir):
         briefing += f"\n- **What to do:** "
         if row['priority_score'] == 'CRITICAL':
             briefing += "Schedule an executive review immediately to demonstrate value before the renewal deadline."
+        elif row['priority_score'] == 'HIGH (Renewal + Seat Mismatch)':
+            briefing += "Coordinate with RevOps to reconcile CRM quota/seat counts before issuing renewal paperwork."
         elif 'Expansion' in row['priority_score']:
             briefing += "Reach out to discuss increasing seat count for the new users."
         elif 'Contact Hygiene' in row['priority_score']:
@@ -92,13 +103,14 @@ def generate_monday_briefing(df, snapshot_date, output_dir):
     with open(os.path.join(output_dir, 'monday_briefing.md'), 'w') as f:
         f.write(briefing)
 
-    # Save small summary for Sam's Claude skill
+    # Save summary for Sam's Claude skill (listing ALL active priority accounts, no limit)
     summary = {
         "snapshot_date": snapshot_date,
         "total_active_customers": len(df),
         "critical_alerts": len(df[df['priority_score'] == 'CRITICAL']),
+        "renewal_seat_mismatch_alerts": len(df[df['priority_score'] == 'HIGH (Renewal + Seat Mismatch)']),
         "expansion_opportunities": len(df[df['priority_score'].str.contains('Expansion')]),
-        "top_accounts": df[['billing_customer_name', 'priority_score', 'days_to_renewal']].head(10).to_dict(orient='records')
+        "priority_accounts": df[df['priority_score'] != 'LOW'][['billing_customer_name', 'priority_score', 'days_to_renewal', 'billing_mrr']].to_dict(orient='records')
     }
     with open(os.path.join(output_dir, 'monday_summary.json'), 'w') as f:
         json.dump(summary, f, indent=2)

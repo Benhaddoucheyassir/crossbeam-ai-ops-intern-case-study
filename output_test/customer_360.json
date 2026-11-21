@@ -634,7 +634,7 @@
     "days_to_renewal":14,
     "usage_trend_pct":0.0,
     "seat_utilization":0.5333333611,
-    "priority_score":"LOW",
+    "priority_score":"HIGH (Renewal + Seat Mismatch)",
     "revops_missing_crm_link":false,
     "revops_shadow_workspaces":null,
     "revops_data_mismatch":true,

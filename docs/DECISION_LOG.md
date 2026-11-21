@@ -17,3 +17,8 @@ This log records major architectural decisions, edge cases encountered during da
 ## Decision 4: Contact Hygiene and Bounced Email Filtering
 - **Context:** Account Managers waste time reaching out to contacts who have left the company or whose email addresses bounced.
 - **Action:** Filtered out contacts where `left_company = true` or `bounced = true` (via `activity.csv`), and flagged accounts with `< 2` active contacts for priority outreach.
+
+## Decision 5: Elevation of Halcyon Travel (Renewal + Seat Mismatch)
+- **Context:** Halcyon Travel (`BIL-520`) has an imminent renewal in 14 days (2026-11-30). While usage is stable, there is a significant data discrepancy: Billing shows 30 seats ($2,000 MRR) but CRM shows 50 seats ($40,000 ARR). 
+- **Action:** Elevated this to `HIGH (Renewal + Seat Mismatch)`. This is a "Commercial Blocker"—issuing a renewal quote with the wrong seat count or ARR will cause friction and delays. 
+- **Product Judgment:** We chose to prioritize `CRITICAL` (active churn risks like Brightpath) at the very top, followed immediately by these "Commercial Blockers". This ensures Sam fixes the "paperwork" for imminent renewals before moving to broader engagement tasks.
