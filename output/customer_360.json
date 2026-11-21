@@ -47,6 +47,46 @@
     "revops_shadow_workspaces": null,
     "revops_data_mismatch": false,
     "bd_no_contacts": false,
+    "internal_support_demand": 0,
+    "customer_accepted_seats": 20,
+    "customer_total_demand": 25,
+    "customer_accepted_seat_utilization": 1.0,
+    "customer_expansion_demand": true,
+    "october_usage_halt": false,
+    "october_usage_drop": false,
+    "data_source_disconnected_with_partners": false,
+    "active_product_admins": [
+      {
+        "user_id": "U-0001",
+        "org_id": "ORG-1001",
+        "full_name": "Sasha Hale",
+        "email": "sasha.hale@halvorsenfreight.example",
+        "verification_status": "verified",
+        "is_primary_workspace": true,
+        "last_login_date": "2026-11-06",
+        "login_days_30d": 6
+      }
+    ],
+    "crm_contact_hygiene": [
+      {
+        "contact_id": "CON-0101",
+        "email": "hanne.solberg@halvorsenfreight.example",
+        "first_name": "Hanne",
+        "last_name": "Solberg",
+        "left_company": false,
+        "email_bounced": false,
+        "possible_duplicate_contact_ids": []
+      },
+      {
+        "contact_id": "CON-0102",
+        "email": "mats.ekdahl@halvorsenfreight.example",
+        "first_name": "Mats",
+        "last_name": "Ekdahl",
+        "left_company": false,
+        "email_bounced": false,
+        "possible_duplicate_contact_ids": []
+      }
+    ],
     "recent_activities": [
       {
         "activity_id": "ACT-0001",
@@ -56,7 +96,10 @@
         "subject": "QBR",
         "summary": "Team is growing fast; two new partner managers start in December and need seats. Asked how to add seats mid-term.",
         "contact_email": "hanne.solberg@halvorsenfreight.example",
-        "owner_name": "Sam Ortega"
+        "owner_name": "Sam Ortega",
+        "crm_account_id": "ACC-001",
+        "match_basis": "crm_account_id",
+        "bounced": false
       }
     ]
   },
@@ -108,6 +151,46 @@
     "revops_shadow_workspaces": null,
     "revops_data_mismatch": false,
     "bd_no_contacts": false,
+    "internal_support_demand": 0,
+    "customer_accepted_seats": 28,
+    "customer_total_demand": 28,
+    "customer_accepted_seat_utilization": 0.9333333333333333,
+    "customer_expansion_demand": false,
+    "october_usage_halt": false,
+    "october_usage_drop": true,
+    "data_source_disconnected_with_partners": false,
+    "active_product_admins": [
+      {
+        "user_id": "U-0053",
+        "org_id": "ORG-1002",
+        "full_name": "Jules Lund",
+        "email": "jules.lund@brightpathlearning.example",
+        "verification_status": "verified",
+        "is_primary_workspace": true,
+        "last_login_date": "2026-11-01",
+        "login_days_30d": 1
+      }
+    ],
+    "crm_contact_hygiene": [
+      {
+        "contact_id": "CON-0201",
+        "email": "gwen.ashby@brightpathlearning.example",
+        "first_name": "Gwen",
+        "last_name": "Ashby",
+        "left_company": false,
+        "email_bounced": false,
+        "possible_duplicate_contact_ids": []
+      },
+      {
+        "contact_id": "CON-0202",
+        "email": "rafael.ibarra@brightpathlearning.example",
+        "first_name": "Rafael",
+        "last_name": "Ibarra",
+        "left_company": false,
+        "email_bounced": false,
+        "possible_duplicate_contact_ids": []
+      }
+    ],
     "recent_activities": [
       {
         "activity_id": "ACT-0003",
@@ -117,7 +200,10 @@
         "subject": "Renewal intro",
         "summary": "CFO joined for the first time. Running a tools consolidation review before any renewal. Wants to see value in numbers by early December.",
         "contact_email": "rafael.ibarra@brightpathlearning.example",
-        "owner_name": "Sam Ortega"
+        "owner_name": "Sam Ortega",
+        "crm_account_id": "ACC-002",
+        "match_basis": "crm_account_id",
+        "bounced": false
       },
       {
         "activity_id": "ACT-0002",
@@ -127,7 +213,10 @@
         "subject": "Check-in",
         "summary": "Gwen says partner program is paused while they restructure. Usage expected to dip over summer.",
         "contact_email": "gwen.ashby@brightpathlearning.example",
-        "owner_name": "Sam Ortega"
+        "owner_name": "Sam Ortega",
+        "crm_account_id": "ACC-002",
+        "match_basis": "crm_account_id",
+        "bounced": false
       }
     ]
   },
@@ -181,6 +270,56 @@
     "revops_shadow_workspaces": true,
     "revops_data_mismatch": false,
     "bd_no_contacts": false,
+    "internal_support_demand": 0,
+    "customer_accepted_seats": 22,
+    "customer_total_demand": 22,
+    "customer_accepted_seat_utilization": 0.88,
+    "customer_expansion_demand": false,
+    "october_usage_halt": false,
+    "october_usage_drop": false,
+    "data_source_disconnected_with_partners": false,
+    "active_product_admins": [
+      {
+        "user_id": "U-0054",
+        "org_id": "ORG-1003",
+        "full_name": "Milan Castell",
+        "email": "milan.castell@quillonhealth.example",
+        "verification_status": "verified",
+        "is_primary_workspace": true,
+        "last_login_date": "2026-11-04",
+        "login_days_30d": 9
+      },
+      {
+        "user_id": "U-0076",
+        "org_id": "ORG-1031",
+        "full_name": "Harper Benn",
+        "email": "harper.benn@quillonhealth.example",
+        "verification_status": "pending",
+        "is_primary_workspace": false,
+        "last_login_date": "2026-11-04",
+        "login_days_30d": 18
+      }
+    ],
+    "crm_contact_hygiene": [
+      {
+        "contact_id": "CON-0301",
+        "email": "lena.fairbanks@quillonhealth.example",
+        "first_name": "Lena",
+        "last_name": "Fairbanks",
+        "left_company": false,
+        "email_bounced": false,
+        "possible_duplicate_contact_ids": []
+      },
+      {
+        "contact_id": "CON-0302",
+        "email": "omar.haddad@quillonhealth.example",
+        "first_name": "Omar",
+        "last_name": "Haddad",
+        "left_company": false,
+        "email_bounced": false,
+        "possible_duplicate_contact_ids": []
+      }
+    ],
     "recent_activities": [
       {
         "activity_id": "ACT-0004",
@@ -190,7 +329,10 @@
         "subject": "Exec sync",
         "summary": "Lena mentioned the marketing team 'started their own workspace' for co-marketing lists. She was not sure who owns it.",
         "contact_email": "lena.fairbanks@quillonhealth.example",
-        "owner_name": "Sam Ortega"
+        "owner_name": "Sam Ortega",
+        "crm_account_id": "ACC-003",
+        "match_basis": "crm_account_id",
+        "bounced": false
       }
     ]
   },
@@ -244,6 +386,46 @@
     "revops_shadow_workspaces": true,
     "revops_data_mismatch": false,
     "bd_no_contacts": false,
+    "internal_support_demand": 0,
+    "customer_accepted_seats": 12,
+    "customer_total_demand": 12,
+    "customer_accepted_seat_utilization": 0.8,
+    "customer_expansion_demand": false,
+    "october_usage_halt": false,
+    "october_usage_drop": false,
+    "data_source_disconnected_with_partners": false,
+    "active_product_admins": [
+      {
+        "user_id": "U-0090",
+        "org_id": "ORG-1041",
+        "full_name": "Rowan Garza",
+        "email": "rowan.garza@marloweanalytics.example",
+        "verification_status": "verified",
+        "is_primary_workspace": true,
+        "last_login_date": "2026-11-07",
+        "login_days_30d": 13
+      }
+    ],
+    "crm_contact_hygiene": [
+      {
+        "contact_id": "CON-0401",
+        "email": "nell.brannigan@marloweanalytics.example",
+        "first_name": "Nell",
+        "last_name": "Brannigan",
+        "left_company": false,
+        "email_bounced": false,
+        "possible_duplicate_contact_ids": []
+      },
+      {
+        "contact_id": "CON-0402",
+        "email": "theo.grant@marloweanalytics.example",
+        "first_name": "Theo",
+        "last_name": "Grant",
+        "left_company": false,
+        "email_bounced": false,
+        "possible_duplicate_contact_ids": []
+      }
+    ],
     "recent_activities": [
       {
         "activity_id": "ACT-0005",
@@ -253,7 +435,10 @@
         "subject": "Workspace deleted by mistake",
         "summary": "Our old admin deleted the workspace and its data during offboarding. We created a new one on 14 Aug and reconnected our CRM. Can you make sure our contract still applies?",
         "contact_email": "nell.brannigan@marloweanalytics.example",
-        "owner_name": "Sam Ortega"
+        "owner_name": "Sam Ortega",
+        "crm_account_id": "ACC-004",
+        "match_basis": "crm_account_id",
+        "bounced": false
       }
     ]
   },
@@ -305,6 +490,46 @@
     "revops_shadow_workspaces": null,
     "revops_data_mismatch": false,
     "bd_no_contacts": false,
+    "internal_support_demand": 0,
+    "customer_accepted_seats": 34,
+    "customer_total_demand": 34,
+    "customer_accepted_seat_utilization": 0.85,
+    "customer_expansion_demand": false,
+    "october_usage_halt": false,
+    "october_usage_drop": false,
+    "data_source_disconnected_with_partners": false,
+    "active_product_admins": [
+      {
+        "user_id": "U-0112",
+        "org_id": "ORG-1006",
+        "full_name": "Cam Zeller",
+        "email": "cam.zeller@corvidretail.example",
+        "verification_status": "verified",
+        "is_primary_workspace": true,
+        "last_login_date": "2026-10-22",
+        "login_days_30d": 2
+      }
+    ],
+    "crm_contact_hygiene": [
+      {
+        "contact_id": "CON-0601",
+        "email": "carmen.velasco@corvidretail.example",
+        "first_name": "Carmen",
+        "last_name": "Velasco",
+        "left_company": false,
+        "email_bounced": false,
+        "possible_duplicate_contact_ids": []
+      },
+      {
+        "contact_id": "CON-0602",
+        "email": "ian.whitlock@corvidretail.example",
+        "first_name": "Ian",
+        "last_name": "Whitlock",
+        "left_company": false,
+        "email_bounced": false,
+        "possible_duplicate_contact_ids": []
+      }
+    ],
     "recent_activities": [
       {
         "activity_id": "ACT-0012",
@@ -314,7 +539,10 @@
         "subject": "Re: Is your partner team flying blind?",
         "summary": "We are already a customer, please take me off this list.",
         "contact_email": "carmen.velasco@corvidretail.example",
-        "owner_name": "Riley Chen"
+        "owner_name": "Riley Chen",
+        "crm_account_id": "ACC-008",
+        "match_basis": "billing_domain",
+        "bounced": false
       },
       {
         "activity_id": "ACT-0011",
@@ -324,7 +552,10 @@
         "subject": "Is your partner team flying blind?",
         "summary": "Cold sequence step 1 sent by BD.",
         "contact_email": "ian.whitlock@corvidretail.example",
-        "owner_name": "Riley Chen"
+        "owner_name": "Riley Chen",
+        "crm_account_id": "ACC-008",
+        "match_basis": "billing_domain",
+        "bounced": false
       },
       {
         "activity_id": "ACT-0010",
@@ -334,7 +565,10 @@
         "subject": "Is your partner team flying blind?",
         "summary": "Cold sequence step 1 sent by BD.",
         "contact_email": "carmen.velasco@corvidretail.example",
-        "owner_name": "Riley Chen"
+        "owner_name": "Riley Chen",
+        "crm_account_id": "ACC-008",
+        "match_basis": "billing_domain",
+        "bounced": false
       },
       {
         "activity_id": "ACT-0009",
@@ -344,7 +578,10 @@
         "subject": "Partner strategy",
         "summary": "Corvid plans to roll out co-selling to the Outdoor subsidiary team. Outdoor has its own contract and budget.",
         "contact_email": "carmen.velasco@corvidretail.example",
-        "owner_name": "Sam Ortega"
+        "owner_name": "Sam Ortega",
+        "crm_account_id": "ACC-006",
+        "match_basis": "crm_account_id",
+        "bounced": false
       }
     ]
   },
@@ -396,6 +633,46 @@
     "revops_shadow_workspaces": null,
     "revops_data_mismatch": false,
     "bd_no_contacts": false,
+    "internal_support_demand": 0,
+    "customer_accepted_seats": 4,
+    "customer_total_demand": 4,
+    "customer_accepted_seat_utilization": 0.8,
+    "customer_expansion_demand": false,
+    "october_usage_halt": false,
+    "october_usage_drop": false,
+    "data_source_disconnected_with_partners": false,
+    "active_product_admins": [
+      {
+        "user_id": "U-0146",
+        "org_id": "ORG-1007",
+        "full_name": "Indy Novak",
+        "email": "indy.novak@corvidoutdoor.example",
+        "verification_status": "verified",
+        "is_primary_workspace": true,
+        "last_login_date": "2026-11-04",
+        "login_days_30d": 12
+      }
+    ],
+    "crm_contact_hygiene": [
+      {
+        "contact_id": "CON-0701",
+        "email": "petra.lind@corvidoutdoor.example",
+        "first_name": "Petra",
+        "last_name": "Lind",
+        "left_company": false,
+        "email_bounced": false,
+        "possible_duplicate_contact_ids": []
+      },
+      {
+        "contact_id": "CON-0702",
+        "email": "jonas.berg@corvidoutdoor.example",
+        "first_name": "Jonas",
+        "last_name": "Berg",
+        "left_company": false,
+        "email_bounced": false,
+        "possible_duplicate_contact_ids": []
+      }
+    ],
     "recent_activities": []
   },
   {
@@ -446,6 +723,46 @@
     "revops_shadow_workspaces": null,
     "revops_data_mismatch": false,
     "bd_no_contacts": false,
+    "internal_support_demand": 0,
+    "customer_accepted_seats": 7,
+    "customer_total_demand": 7,
+    "customer_accepted_seat_utilization": 0.875,
+    "customer_expansion_demand": false,
+    "october_usage_halt": false,
+    "october_usage_drop": false,
+    "data_source_disconnected_with_partners": false,
+    "active_product_admins": [
+      {
+        "user_id": "U-0152",
+        "org_id": "ORG-1010",
+        "full_name": "Kendall Eriksen",
+        "email": "kendall.eriksen@ostrava-robotics.example",
+        "verification_status": "verified",
+        "is_primary_workspace": true,
+        "last_login_date": "2026-11-12",
+        "login_days_30d": 10
+      }
+    ],
+    "crm_contact_hygiene": [
+      {
+        "contact_id": "CON-1001",
+        "email": "tomas.dvorak@ostrava-robotics.example",
+        "first_name": "Tomas",
+        "last_name": "Dvorak",
+        "left_company": false,
+        "email_bounced": false,
+        "possible_duplicate_contact_ids": []
+      },
+      {
+        "contact_id": "CON-1002",
+        "email": "klara.novak@ostrava-robotics.example",
+        "first_name": "Klara",
+        "last_name": "Novak",
+        "left_company": false,
+        "email_bounced": false,
+        "possible_duplicate_contact_ids": []
+      }
+    ],
     "recent_activities": [
       {
         "activity_id": "ACT-0013",
@@ -455,7 +772,10 @@
         "subject": "Onboarding check",
         "summary": "Usage steady, wants help mapping two new resellers.",
         "contact_email": "tomas.dvorak@ostrava-robotics.example",
-        "owner_name": "Sam Ortega"
+        "owner_name": "Sam Ortega",
+        "crm_account_id": "ACC-010",
+        "match_basis": "crm_account_id",
+        "bounced": false
       }
     ]
   },
@@ -507,6 +827,46 @@
     "revops_shadow_workspaces": null,
     "revops_data_mismatch": false,
     "bd_no_contacts": false,
+    "internal_support_demand": 1,
+    "customer_accepted_seats": 23,
+    "customer_total_demand": 33,
+    "customer_accepted_seat_utilization": 0.92,
+    "customer_expansion_demand": true,
+    "october_usage_halt": false,
+    "october_usage_drop": false,
+    "data_source_disconnected_with_partners": false,
+    "active_product_admins": [
+      {
+        "user_id": "U-0159",
+        "org_id": "ORG-1011",
+        "full_name": "Oli Hale",
+        "email": "oli.hale@kestrelpay.example",
+        "verification_status": "verified",
+        "is_primary_workspace": true,
+        "last_login_date": "2026-11-08",
+        "login_days_30d": 16
+      }
+    ],
+    "crm_contact_hygiene": [
+      {
+        "contact_id": "CON-1101",
+        "email": "lucia.ferrante@kestrelpay.example",
+        "first_name": "Lucia",
+        "last_name": "Ferrante",
+        "left_company": false,
+        "email_bounced": false,
+        "possible_duplicate_contact_ids": []
+      },
+      {
+        "contact_id": "CON-1102",
+        "email": "ben.okoro@kestrelpay.example",
+        "first_name": "Ben",
+        "last_name": "Okoro",
+        "left_company": false,
+        "email_bounced": false,
+        "possible_duplicate_contact_ids": []
+      }
+    ],
     "recent_activities": [
       {
         "activity_id": "ACT-0014",
@@ -516,7 +876,10 @@
         "subject": "Monthly sync",
         "summary": "Several reps asked for access and are waiting. Lucia assumed they had seats left.",
         "contact_email": "lucia.ferrante@kestrelpay.example",
-        "owner_name": "Sam Ortega"
+        "owner_name": "Sam Ortega",
+        "crm_account_id": "ACC-011",
+        "match_basis": "crm_account_id",
+        "bounced": false
       }
     ]
   },
@@ -568,6 +931,37 @@
     "revops_shadow_workspaces": null,
     "revops_data_mismatch": false,
     "bd_no_contacts": true,
+    "internal_support_demand": 0,
+    "customer_accepted_seats": 16,
+    "customer_total_demand": 16,
+    "customer_accepted_seat_utilization": 0.8,
+    "customer_expansion_demand": false,
+    "october_usage_halt": false,
+    "october_usage_drop": false,
+    "data_source_disconnected_with_partners": false,
+    "active_product_admins": [
+      {
+        "user_id": "U-0192",
+        "org_id": "ORG-1013",
+        "full_name": "Femi Adeyemi",
+        "email": "femi.adeyemi@sableinsurance.example",
+        "verification_status": "verified",
+        "is_primary_workspace": true,
+        "last_login_date": "2026-11-07",
+        "login_days_30d": 9
+      }
+    ],
+    "crm_contact_hygiene": [
+      {
+        "contact_id": "CON-1301",
+        "email": "dana.okafor@sableinsurance.example",
+        "first_name": "Dana",
+        "last_name": "Okafor",
+        "left_company": false,
+        "email_bounced": true,
+        "possible_duplicate_contact_ids": []
+      }
+    ],
     "recent_activities": [
       {
         "activity_id": "ACT-0016",
@@ -577,7 +971,10 @@
         "subject": "Following up",
         "summary": "Hard bounce: mailbox does not exist.",
         "contact_email": "dana.okafor@sableinsurance.example",
-        "owner_name": "Sam Ortega"
+        "owner_name": "Sam Ortega",
+        "crm_account_id": "ACC-013",
+        "match_basis": "crm_account_id",
+        "bounced": true
       },
       {
         "activity_id": "ACT-0015",
@@ -587,7 +984,10 @@
         "subject": "Renewal planning",
         "summary": "Hard bounce: mailbox does not exist.",
         "contact_email": "dana.okafor@sableinsurance.example",
-        "owner_name": "Sam Ortega"
+        "owner_name": "Sam Ortega",
+        "crm_account_id": "ACC-013",
+        "match_basis": "crm_account_id",
+        "bounced": true
       }
     ]
   },
@@ -639,6 +1039,60 @@
     "revops_shadow_workspaces": null,
     "revops_data_mismatch": false,
     "bd_no_contacts": false,
+    "internal_support_demand": 0,
+    "customer_accepted_seats": 4,
+    "customer_total_demand": 4,
+    "customer_accepted_seat_utilization": 0.4,
+    "customer_expansion_demand": false,
+    "october_usage_halt": false,
+    "october_usage_drop": false,
+    "data_source_disconnected_with_partners": false,
+    "active_product_admins": [
+      {
+        "user_id": "U-0207",
+        "org_id": "ORG-1014",
+        "full_name": "Priya Nair",
+        "email": "pnair@arborcivic.example",
+        "verification_status": "verified",
+        "is_primary_workspace": true,
+        "last_login_date": "2026-11-14",
+        "login_days_30d": 14
+      },
+      {
+        "user_id": "U-0208",
+        "org_id": "ORG-1014",
+        "full_name": "Noor Garza",
+        "email": "noor.garza@arborcivic.example",
+        "verification_status": "verified",
+        "is_primary_workspace": true,
+        "last_login_date": "2026-11-05",
+        "login_days_30d": 13
+      }
+    ],
+    "crm_contact_hygiene": [
+      {
+        "contact_id": "CON-1401",
+        "email": "priya.nair@arborcivic.example",
+        "first_name": "Priya",
+        "last_name": "Nair",
+        "left_company": false,
+        "email_bounced": false,
+        "possible_duplicate_contact_ids": [
+          "CON-1402"
+        ]
+      },
+      {
+        "contact_id": "CON-1402",
+        "email": "pnair@arborcivic.example",
+        "first_name": "P.",
+        "last_name": "Nair",
+        "left_company": false,
+        "email_bounced": false,
+        "possible_duplicate_contact_ids": [
+          "CON-1401"
+        ]
+      }
+    ],
     "recent_activities": [
       {
         "activity_id": "ACT-0017",
@@ -648,7 +1102,10 @@
         "subject": "Check-in",
         "summary": "Priya is the only person driving the program; asked for help getting sales leadership involved.",
         "contact_email": "priya.nair@arborcivic.example",
-        "owner_name": "Sam Ortega"
+        "owner_name": "Sam Ortega",
+        "crm_account_id": "ACC-014",
+        "match_basis": "crm_account_id",
+        "bounced": false
       },
       {
         "activity_id": "ACT-0018",
@@ -658,7 +1115,10 @@
         "subject": "Report review",
         "summary": "Priya walked through the overlap report. No one else from Arbor attended.",
         "contact_email": "pnair@arborcivic.example",
-        "owner_name": "Sam Ortega"
+        "owner_name": "Sam Ortega",
+        "crm_account_id": "ACC-014",
+        "match_basis": "crm_account_id",
+        "bounced": false
       }
     ]
   },
@@ -710,6 +1170,46 @@
     "revops_shadow_workspaces": null,
     "revops_data_mismatch": false,
     "bd_no_contacts": false,
+    "internal_support_demand": 0,
+    "customer_accepted_seats": 11,
+    "customer_total_demand": 11,
+    "customer_accepted_seat_utilization": 0.7333333333333333,
+    "customer_expansion_demand": false,
+    "october_usage_halt": false,
+    "october_usage_drop": false,
+    "data_source_disconnected_with_partners": true,
+    "active_product_admins": [
+      {
+        "user_id": "U-0211",
+        "org_id": "ORG-1015",
+        "full_name": "Zion Fox",
+        "email": "zion.fox@gantrycloud.example",
+        "verification_status": "verified",
+        "is_primary_workspace": true,
+        "last_login_date": "2026-11-12",
+        "login_days_30d": 6
+      }
+    ],
+    "crm_contact_hygiene": [
+      {
+        "contact_id": "CON-1501",
+        "email": "hugo.brandt@gantrycloud.example",
+        "first_name": "Hugo",
+        "last_name": "Brandt",
+        "left_company": false,
+        "email_bounced": false,
+        "possible_duplicate_contact_ids": []
+      },
+      {
+        "contact_id": "CON-1502",
+        "email": "mei.tanaka@gantrycloud.example",
+        "first_name": "Mei",
+        "last_name": "Tanaka",
+        "left_company": false,
+        "email_bounced": false,
+        "possible_duplicate_contact_ids": []
+      }
+    ],
     "recent_activities": [
       {
         "activity_id": "ACT-0019",
@@ -719,7 +1219,10 @@
         "subject": "Value review",
         "summary": "Hugo frustrated: 'we connected nine partners and see nothing'. Wants to add more partners.",
         "contact_email": "hugo.brandt@gantrycloud.example",
-        "owner_name": "Sam Ortega"
+        "owner_name": "Sam Ortega",
+        "crm_account_id": "ACC-015",
+        "match_basis": "crm_account_id",
+        "bounced": false
       }
     ]
   },
@@ -771,6 +1274,46 @@
     "revops_shadow_workspaces": null,
     "revops_data_mismatch": false,
     "bd_no_contacts": false,
+    "internal_support_demand": 0,
+    "customer_accepted_seats": 5,
+    "customer_total_demand": 5,
+    "customer_accepted_seat_utilization": 1.0,
+    "customer_expansion_demand": false,
+    "october_usage_halt": false,
+    "october_usage_drop": false,
+    "data_source_disconnected_with_partners": true,
+    "active_product_admins": [
+      {
+        "user_id": "U-0222",
+        "org_id": "ORG-1018",
+        "full_name": "Pax Benn",
+        "email": "pax.benn@pinecrestdental.example",
+        "verification_status": "verified",
+        "is_primary_workspace": true,
+        "last_login_date": "2026-11-10",
+        "login_days_30d": 9
+      }
+    ],
+    "crm_contact_hygiene": [
+      {
+        "contact_id": "CON-1801",
+        "email": "ruth.calloway@pinecrestdental.example",
+        "first_name": "Ruth",
+        "last_name": "Calloway",
+        "left_company": false,
+        "email_bounced": false,
+        "possible_duplicate_contact_ids": []
+      },
+      {
+        "contact_id": "CON-1802",
+        "email": "dev.patel@pinecrestdental.example",
+        "first_name": "Dev",
+        "last_name": "Patel",
+        "left_company": false,
+        "email_bounced": false,
+        "possible_duplicate_contact_ids": []
+      }
+    ],
     "recent_activities": [
       {
         "activity_id": "ACT-0020",
@@ -780,7 +1323,10 @@
         "subject": "Check-in",
         "summary": "Ruth is happy with the product. She says they connected their CRM last month and their three partners are set up. No changes planned.",
         "contact_email": "ruth.calloway@pinecrestdental.example",
-        "owner_name": "Sam Ortega"
+        "owner_name": "Sam Ortega",
+        "crm_account_id": "ACC-018",
+        "match_basis": "crm_account_id",
+        "bounced": false
       }
     ]
   },
@@ -832,6 +1378,46 @@
     "revops_shadow_workspaces": null,
     "revops_data_mismatch": true,
     "bd_no_contacts": false,
+    "internal_support_demand": 0,
+    "customer_accepted_seats": 18,
+    "customer_total_demand": 18,
+    "customer_accepted_seat_utilization": 0.6,
+    "customer_expansion_demand": false,
+    "october_usage_halt": false,
+    "october_usage_drop": false,
+    "data_source_disconnected_with_partners": false,
+    "active_product_admins": [
+      {
+        "user_id": "U-0227",
+        "org_id": "ORG-1020",
+        "full_name": "Casey Hale",
+        "email": "casey.hale@halcyontravel.example",
+        "verification_status": "verified",
+        "is_primary_workspace": true,
+        "last_login_date": "2026-11-07",
+        "login_days_30d": 12
+      }
+    ],
+    "crm_contact_hygiene": [
+      {
+        "contact_id": "CON-2001",
+        "email": "ilse.brouwer@halcyontravel.example",
+        "first_name": "Ilse",
+        "last_name": "Brouwer",
+        "left_company": false,
+        "email_bounced": false,
+        "possible_duplicate_contact_ids": []
+      },
+      {
+        "contact_id": "CON-2002",
+        "email": "ruben.vos@halcyontravel.example",
+        "first_name": "Ruben",
+        "last_name": "Vos",
+        "left_company": false,
+        "email_bounced": false,
+        "possible_duplicate_contact_ids": []
+      }
+    ],
     "recent_activities": [
       {
         "activity_id": "ACT-0021",
@@ -841,7 +1427,10 @@
         "subject": "Mid-term review",
         "summary": "Ilse reminded us they downgraded to 30 seats in June. Asked why the invoice is right but our renewal quote mentions 50.",
         "contact_email": "ilse.brouwer@halcyontravel.example",
-        "owner_name": "Sam Ortega"
+        "owner_name": "Sam Ortega",
+        "crm_account_id": "ACC-020",
+        "match_basis": "crm_account_id",
+        "bounced": false
       }
     ]
   },
@@ -893,6 +1482,46 @@
     "revops_shadow_workspaces": null,
     "revops_data_mismatch": false,
     "bd_no_contacts": false,
+    "internal_support_demand": 0,
+    "customer_accepted_seats": 3,
+    "customer_total_demand": 7,
+    "customer_accepted_seat_utilization": 0.3,
+    "customer_expansion_demand": false,
+    "october_usage_halt": false,
+    "october_usage_drop": null,
+    "data_source_disconnected_with_partners": true,
+    "active_product_admins": [
+      {
+        "user_id": "U-0245",
+        "org_id": "ORG-1021",
+        "full_name": "Rowan Kowal",
+        "email": "rowan.kowal@briskmobility.example",
+        "verification_status": "verified",
+        "is_primary_workspace": true,
+        "last_login_date": "2026-11-09",
+        "login_days_30d": 6
+      }
+    ],
+    "crm_contact_hygiene": [
+      {
+        "contact_id": "CON-2101",
+        "email": "noah.gallo@briskmobility.example",
+        "first_name": "Noah",
+        "last_name": "Gallo",
+        "left_company": false,
+        "email_bounced": false,
+        "possible_duplicate_contact_ids": []
+      },
+      {
+        "contact_id": "CON-2102",
+        "email": "lea.martin@briskmobility.example",
+        "first_name": "Lea",
+        "last_name": "Martin",
+        "left_company": false,
+        "email_bounced": false,
+        "possible_duplicate_contact_ids": []
+      }
+    ],
     "recent_activities": [
       {
         "activity_id": "ACT-0022",
@@ -902,7 +1531,10 @@
         "subject": "Kickoff",
         "summary": "Kickoff done. CRM connection planned for next week, then they invite the sales team.",
         "contact_email": "noah.gallo@briskmobility.example",
-        "owner_name": "Sam Ortega"
+        "owner_name": "Sam Ortega",
+        "crm_account_id": "ACC-021",
+        "match_basis": "crm_account_id",
+        "bounced": false
       }
     ]
   },
@@ -954,6 +1586,26 @@
     "revops_shadow_workspaces": null,
     "revops_data_mismatch": false,
     "bd_no_contacts": false,
+    "internal_support_demand": 0,
+    "customer_accepted_seats": 5,
+    "customer_total_demand": 5,
+    "customer_accepted_seat_utilization": 1.0,
+    "customer_expansion_demand": false,
+    "october_usage_halt": false,
+    "october_usage_drop": null,
+    "data_source_disconnected_with_partners": false,
+    "active_product_admins": [],
+    "crm_contact_hygiene": [
+      {
+        "contact_id": "CON-2201",
+        "email": "eva.sorensen@juniperrow.example",
+        "first_name": "Eva",
+        "last_name": "Sorensen",
+        "left_company": false,
+        "email_bounced": false,
+        "possible_duplicate_contact_ids": []
+      }
+    ],
     "recent_activities": [
       {
         "activity_id": "ACT-0023",
@@ -963,7 +1615,10 @@
         "subject": "Signed",
         "summary": "Signed. Will get the team started after our busy season.",
         "contact_email": "eva.sorensen@juniperrow.example",
-        "owner_name": "Sam Ortega"
+        "owner_name": "Sam Ortega",
+        "crm_account_id": "ACC-022",
+        "match_basis": "crm_account_id",
+        "bounced": false
       }
     ]
   },
@@ -1015,6 +1670,35 @@
     "revops_shadow_workspaces": null,
     "revops_data_mismatch": false,
     "bd_no_contacts": false,
+    "internal_support_demand": 0,
+    "customer_accepted_seats": 0,
+    "customer_total_demand": 0,
+    "customer_accepted_seat_utilization": null,
+    "customer_expansion_demand": false,
+    "october_usage_halt": null,
+    "october_usage_drop": null,
+    "data_source_disconnected_with_partners": null,
+    "active_product_admins": [],
+    "crm_contact_hygiene": [
+      {
+        "contact_id": "CON-2501",
+        "email": "iris.moreau@fenwicklabs.example",
+        "first_name": "Iris",
+        "last_name": "Moreau",
+        "left_company": false,
+        "email_bounced": false,
+        "possible_duplicate_contact_ids": []
+      },
+      {
+        "contact_id": "CON-2502",
+        "email": "kai.lindgren@fenwicklabs.example",
+        "first_name": "Kai",
+        "last_name": "Lindgren",
+        "left_company": false,
+        "email_bounced": false,
+        "possible_duplicate_contact_ids": []
+      }
+    ],
     "recent_activities": [
       {
         "activity_id": "ACT-0024",
@@ -1024,7 +1708,10 @@
         "subject": "Contract signed",
         "summary": "Contract countersigned for 8 Starter seats from 1 October. Iris will be the admin. Kickoff to be booked once the team is set up.",
         "contact_email": "iris.moreau@fenwicklabs.example",
-        "owner_name": "Sam Ortega"
+        "owner_name": "Sam Ortega",
+        "crm_account_id": "ACC-025",
+        "match_basis": "crm_account_id",
+        "bounced": false
       }
     ]
   },
@@ -1076,6 +1763,27 @@
     "revops_shadow_workspaces": null,
     "revops_data_mismatch": null,
     "bd_no_contacts": null,
+    "internal_support_demand": 0,
+    "customer_accepted_seats": 10,
+    "customer_total_demand": 10,
+    "customer_accepted_seat_utilization": 0.8333333333333334,
+    "customer_expansion_demand": false,
+    "october_usage_halt": false,
+    "october_usage_drop": false,
+    "data_source_disconnected_with_partners": false,
+    "active_product_admins": [
+      {
+        "user_id": "U-0102",
+        "org_id": "ORG-1005",
+        "full_name": "Dara Ilunga",
+        "email": "dara.ilunga@tessel.example",
+        "verification_status": "verified",
+        "is_primary_workspace": true,
+        "last_login_date": "2026-11-16",
+        "login_days_30d": 6
+      }
+    ],
+    "crm_contact_hygiene": [],
     "recent_activities": [
       {
         "activity_id": "ACT-0008",
@@ -1085,7 +1793,10 @@
         "subject": "Tessel x onboarding refresh",
         "summary": "Ama took over admin. Asked why their success manager never reaches out. Interested in the partner attribution report.",
         "contact_email": "ama.owusu@tessel.example",
-        "owner_name": "unassigned"
+        "owner_name": "unassigned",
+        "crm_account_id": null,
+        "match_basis": "billing_domain",
+        "bounced": false
       }
     ]
   }

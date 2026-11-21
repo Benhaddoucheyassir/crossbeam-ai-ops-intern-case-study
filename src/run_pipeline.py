@@ -33,6 +33,10 @@ def run_pipeline(data_dir, snapshot_date, output_dir):
 
     # Fetch final report
     df = con.execute("SELECT * FROM final_report").df()
+    enrichment = {
+        customer_id: json.loads(context)
+        for customer_id, context in con.execute("SELECT * FROM customer_enrichment").fetchall()
+    }
 
     # Save CSV version (strictly preserved schema)
     df.to_csv(os.path.join(output_dir, 'customer_360.csv'), index=False)
@@ -64,36 +68,47 @@ def run_pipeline(data_dir, snapshot_date, output_dir):
             else:
                 rec[k] = v
 
+        rec.update(enrichment[rec['billing_customer_id']])
         acc_id = rec.get('crm_account_id')
         billing_dom = str(rec.get('billing_domain', '')).strip().lower()
         
         account_acts = []
         if not act_df.empty:
             for _, act in act_df.iterrows():
+                activity_date = act.get('activity_date')
+                if pd.isna(activity_date) or activity_date > snapshot_date:
+                    continue
                 act_acc_id = act.get('account_id')
                 act_email = str(act.get('contact_email', '')).strip().lower()
                 act_domain = act_email.split('@')[-1] if '@' in act_email else ''
                 
-                matched = False
-                if pd.notna(acc_id) and str(acc_id).strip() != '' and pd.notna(act_acc_id) and str(act_acc_id).strip() == str(acc_id).strip():
-                    matched = True
-                elif billing_dom and act_domain and act_domain == billing_dom:
-                    matched = True
-                
-                if matched:
-                    account_acts.append({
-                        "activity_id": str(act.get('activity_id', '')),
-                        "activity_date": str(act.get('activity_date', '')),
-                        "channel": str(act.get('source', '')),
-                        "activity_type": str(act.get('direction', '')),
-                        "subject": str(act.get('subject', '')),
-                        "summary": str(act.get('summary', '')),
-                        "contact_email": str(act.get('contact_email', '')),
-                        "owner_name": str(act.get('logged_by', ''))
-                    })
+                if acc_id and pd.notna(act_acc_id) and str(act_acc_id).strip() == acc_id:
+                    match_basis = 'crm_account_id'
+                elif billing_dom and act_domain == billing_dom:
+                    match_basis = 'billing_domain'
+                else:
+                    continue
+
+                def activity_value(field):
+                    value = act.get(field)
+                    return None if pd.isna(value) else str(value)
+
+                account_acts.append({
+                    "activity_id": activity_value('activity_id'),
+                    "activity_date": activity_date,
+                    "channel": activity_value('source'),
+                    "activity_type": activity_value('direction'),
+                    "subject": activity_value('subject'),
+                    "summary": activity_value('summary'),
+                    "contact_email": activity_value('contact_email'),
+                    "owner_name": activity_value('logged_by'),
+                    "crm_account_id": activity_value('account_id'),
+                    "match_basis": match_basis,
+                    "bounced": None if pd.isna(act.get('bounced')) else str(act['bounced']).lower() == 'true',
+                })
         
         # Sort by activity_date desc, activity_id desc and keep top 5
-        account_acts.sort(key=lambda x: (x['activity_date'], x['activity_id']), reverse=True)
+        account_acts.sort(key=lambda x: (x['activity_date'], x['activity_id'] or ''), reverse=True)
         rec['recent_activities'] = account_acts[:5]
         json_records.append(rec)
 
@@ -158,6 +173,7 @@ def generate_monday_briefing(df, snapshot_date, output_dir):
     summary = {
         "snapshot_date": snapshot_date,
         "total_active_customers": len(df),
+        "total_billing_arr": round(float(df['billing_arr'].sum()), 2),
         "critical_alerts": len(df[df['priority_score'] == 'CRITICAL']),
         "renewal_seat_mismatch_alerts": len(df[df['priority_score'] == 'HIGH (Renewal + Seat Mismatch)']),
         "expansion_opportunities": len(df[df['priority_score'].str.contains('Expansion')]),

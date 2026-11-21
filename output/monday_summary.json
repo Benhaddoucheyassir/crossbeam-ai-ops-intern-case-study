@@ -1,6 +1,7 @@
 {
   "snapshot_date": "2026-11-16",
   "total_active_customers": 17,
+  "total_billing_arr": 492099.96,
   "critical_alerts": 2,
   "renewal_seat_mismatch_alerts": 1,
   "expansion_opportunities": 2,
