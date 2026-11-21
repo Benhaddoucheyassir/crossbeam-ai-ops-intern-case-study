@@ -34,13 +34,8 @@ def run_pipeline(data_dir, snapshot_date, output_dir):
     # Fetch final report
     df = con.execute("SELECT * FROM final_report").df()
 
-    # Save outputs
+    # Save CSV version (strictly preserved schema)
     df.to_csv(os.path.join(output_dir, 'customer_360.csv'), index=False)
-    
-    # Save JSON version for Claude
-    json_data = df.to_json(orient='records', indent=2)
-    with open(os.path.join(output_dir, 'customer_360.json'), 'w') as f:
-        f.write(json_data)
 
     # Generate RevOps Flags
     revops_df = df[df['revops_missing_crm_link'] | df['revops_shadow_workspaces'] | df['revops_data_mismatch']]
@@ -50,7 +45,63 @@ def run_pipeline(data_dir, snapshot_date, output_dir):
     bd_df = df[df['bd_no_contacts']]
     bd_df.to_csv(os.path.join(output_dir, 'bd_flags.csv'), index=False)
 
-    # Generate Sam's Monday Briefing (NO LIMIT on briefing rows)
+    # Load activities for JSON enhancement
+    act_df = pd.DataFrame()
+    activity_path = os.path.join(data_dir, 'activity.csv')
+    if os.path.exists(activity_path):
+        act_df = pd.read_csv(activity_path)
+
+    json_records = []
+    for _, row in df.iterrows():
+        rec = {}
+        for k, v in row.to_dict().items():
+            if pd.isna(v):
+                rec[k] = None
+            elif isinstance(v, (pd.Timestamp, datetime)):
+                rec[k] = str(v.date() if hasattr(v, 'date') else v)
+            elif hasattr(v, 'tolist'): # handle numpy arrays/lists if any
+                rec[k] = v.tolist()
+            else:
+                rec[k] = v
+
+        acc_id = rec.get('crm_account_id')
+        billing_dom = str(rec.get('billing_domain', '')).strip().lower()
+        
+        account_acts = []
+        if not act_df.empty:
+            for _, act in act_df.iterrows():
+                act_acc_id = act.get('account_id')
+                act_email = str(act.get('contact_email', '')).strip().lower()
+                act_domain = act_email.split('@')[-1] if '@' in act_email else ''
+                
+                matched = False
+                if pd.notna(acc_id) and str(acc_id).strip() != '' and pd.notna(act_acc_id) and str(act_acc_id).strip() == str(acc_id).strip():
+                    matched = True
+                elif billing_dom and act_domain and act_domain == billing_dom:
+                    matched = True
+                
+                if matched:
+                    account_acts.append({
+                        "activity_id": str(act.get('activity_id', '')),
+                        "activity_date": str(act.get('activity_date', '')),
+                        "channel": str(act.get('source', '')),
+                        "activity_type": str(act.get('direction', '')),
+                        "subject": str(act.get('subject', '')),
+                        "summary": str(act.get('summary', '')),
+                        "contact_email": str(act.get('contact_email', '')),
+                        "owner_name": str(act.get('logged_by', ''))
+                    })
+        
+        # Sort by activity_date desc, activity_id desc and keep top 5
+        account_acts.sort(key=lambda x: (x['activity_date'], x['activity_id']), reverse=True)
+        rec['recent_activities'] = account_acts[:5]
+        json_records.append(rec)
+
+    # Save JSON version for Claude with recent_activities attached
+    with open(os.path.join(output_dir, 'customer_360.json'), 'w') as f:
+        json.dump(json_records, f, indent=2)
+
+    # Generate Sam's Monday Briefing
     generate_monday_briefing(df, snapshot_date, output_dir)
 
 def generate_monday_briefing(df, snapshot_date, output_dir):
@@ -103,7 +154,7 @@ def generate_monday_briefing(df, snapshot_date, output_dir):
     with open(os.path.join(output_dir, 'monday_briefing.md'), 'w') as f:
         f.write(briefing)
 
-    # Save summary for Sam's Claude skill (listing ALL active priority accounts, no limit)
+    # Save summary for Sam's Claude skill
     summary = {
         "snapshot_date": snapshot_date,
         "total_active_customers": len(df),

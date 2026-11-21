@@ -22,3 +22,27 @@ This log records major architectural decisions, edge cases encountered during da
 - **Context:** Halcyon Travel (`BIL-520`) has an imminent renewal in 14 days (2026-11-30). While usage is stable, there is a significant data discrepancy: Billing shows 30 seats ($2,000 MRR) but CRM shows 50 seats ($40,000 ARR). 
 - **Action:** Elevated this to `HIGH (Renewal + Seat Mismatch)`. This is a "Commercial Blocker"—issuing a renewal quote with the wrong seat count or ARR will cause friction and delays. 
 - **Product Judgment:** We chose to prioritize `CRITICAL` (active churn risks like Brightpath) at the very top, followed immediately by these "Commercial Blockers". This ensures Sam fixes the "paperwork" for imminent renewals before moving to broader engagement tasks.
+
+## v1 Deterministic Pipeline vs. Raw-CSV Exploratory Pass (2026-11-21)
+
+### Why v1 Kept Core Scoring Deterministic
+- **Active universe (`17` accounts):** Anchored to active billing records in `billing_subscriptions.csv` rather than mixing in free/pending workspaces (`ORG-1030` Vantor Logistics, `ORG-1032` Jess's workspace) or separate subsidiary workspaces (`ORG-1007` Corvid Outdoor).
+- **Avoided fragile free-text rules in SQL:** `activity.csv` contains rich narrative context (calls and emails), so v1 kept scoring and flags deterministic from structured billing, CRM, workspace, user, and activity counts rather than brittle keyword matching.
+
+### Additional Signals Identified for v2
+- **Unanswered / operational `activity.csv` threads:** Marlowe Analytics (`ACT-0005` contract question after `ORG-1004` deletion), Tessel (`ACT-0008` unassigned call with Ama Owusu), Brightpath Learning (`ACT-0003` CFO consolidation review by early December), and Gantry Cloud / Pinecrest Dental (`data_source_connected = false` resulting in `0` overlaps despite active partners).
+- **CRM & contact hygiene anomalies:** Duplicate contact records for Priya Nair at Arbor Civic (`CON-1401` and `CON-1402`), stale domain email for Victor Albescu (`@tessellate.example` vs. `@tessel.example`), departed contact Morgan Lindqvist (`CON-0901` at Pellucid Bank), and BD cold-outreach overlap onto existing customer contacts at Corvid Retail (`ACC-008` vs. `ACC-006`).
+- **User seat hygiene:** Filtering internal/support test accounts (such as any Crossbeam Support user in `ORG-1011` Kestrel Payments) when computing true customer seat utilization.
+
+## Raw-CSV Comparison & Activity Context Enrichment (2026-11-21)
+
+### What We Compared
+- Compared the deterministic DuckDB/SQL pipeline (`17` active billing accounts, `Billing > CRM > Product/Activity` trust hierarchy) against a direct raw-CSV pass across `billing_subscriptions.csv`, `crm_accounts.csv`, `crm_contacts.csv`, `crossbeam_workspaces.csv`, `crossbeam_users.csv`, and `activity.csv`.
+
+### Why Core Scoring Stayed Deterministic (and Why `17` vs. `18` Differed)
+- Kept the active customer universe anchored to active billing subscriptions (`17` accounts) and kept priority scores/flags deterministic rather than inferring metrics or counts from raw CSV text or secondary/non-customer workspaces (`ORG-1007` Corvid Outdoor, `ORG-1030` Vantor Logistics, `ORG-1032` Jess's workspace).
+- Avoided fragile keyword/text rules inside SQL for `activity.csv` notes.
+
+### Improvement Added vs. Future v2 Scope
+- **Added now:** Attached `recent_activities` context from `data/activity.csv` to `customer_360.json` (matched by `crm_account_id` with domain fallback for unlinked records like `Tessel Inc.`) and instructed `claude_skill/SKILL.md` to use those notes strictly as qualitative context without overriding structured metrics or priority scores.
+- **Deferred to v2:** Filtering internal/support test accounts out of seat utilization (e.g., internal support account in `ORG-1011` Kestrel Payments), surfacing unconnected data sources with active partners (`ORG-1015` Gantry Cloud, `ORG-1018` Pinecrest Dental), flagging duplicate CRM contacts (`CON-1401`/`CON-1402` Priya Nair) or stale domain emails (`victor.albescu@tessellate.example`), and checking BD prospect outreach collisions against active customer contacts (`ACC-008` vs. `ACC-006` Corvid Retail).
