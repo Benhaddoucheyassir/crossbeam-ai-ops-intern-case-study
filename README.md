@@ -4,9 +4,9 @@ Reconcile messy Billing, CRM, Product workspace/user, and Activity data into a d
 
 ## What We Built
 
-- **Deterministic SQL / DuckDB Pipeline (`src/run_pipeline.py`, `src/sql/01–05`):** Enforces a `Billing > CRM > Product/Activity` trust hierarchy across `17` active billing subscriptions (`$492,099.96` exact billing ARR, `~$492,000` rounded to the nearest thousand as of `2026-11-16`), resolves primary vs. shadow/unverified workspaces, separates internal support seats (`@crossbeam.example` / `"Crossbeam Support"`), surfaces eligible active product admins as backup contacts, flags usage drops/halts and disconnected data sources with active partners, and attaches `recent_activities` with match provenance.
+- **Deterministic SQL / DuckDB Pipeline (`src/run_pipeline.py`, `src/sql/01–06`):** Applies `Billing > CRM > Product/Activity` across 17 active subscriptions and $492,099.96 exact billing ARR on 2026-11-16. JSON includes adjusted seat demand, backup admins, usage and connection signals, activity provenance, and evidence-backed handoffs. The CSV exports retain their legacy schemas.
 - **Monday Assistant Skill & Sample Output (`claude_skill/SKILL.md`, `output/assistant_sample_response.md`):** Grounds Sam's weekly briefing strictly in pre-computed JSON (`output/customer_360.json`, `output/monday_summary.json`) and activity records while separating verified facts from unknowns or unverified claims.
-- **Verification & Documentation (`tests/test_snapshot.py`, `docs/RULES.md`, `docs/ARCHITECTURE.md`, `docs/DECISION_LOG.md`):** `13` passing pytest snapshot tests plus documentation of business rules, architecture, trade-offs, and raw-CSV comparisons.
+- **Verification & Documentation:** `tests/test_snapshot.py` covers the billing baseline, edge cases, and reproducible outputs. See `docs/RULES.md`, `docs/ARCHITECTURE.md`, and `docs/DECISION_LOG.md` for rules, validation questions, and trade-offs.
 
 ## How to Run It
 
@@ -23,12 +23,13 @@ Reconcile messy Billing, CRM, Product workspace/user, and Activity data into a d
 
 ## Who Else Can Use This & How
 
-- **RevOps:** Use `output/revops_flags.csv` and workspace/billing mismatch signals to reconcile CRM seat/ARR drift (Halcyon Travel), relink workspaces (`Marlowe`, `Tessel`, `Ostrava`), deduplicate CRM contacts/accounts, and audit shadow workspaces (`Quillon ORG-1031`).
-- **Business Development (BD):** Check `output/bd_flags.csv` and customer/domain linkages to avoid cold-emailing existing customer contacts (such as Corvid Retail Group via `ACC-008`), protect active expansion motions (`Corvid Outdoor`), and follow up on unlinked PLG workspaces (`Vantor Logistics`).
+- **RevOps:** Review the JSON action queue for billing mismatches, stale or missing workspace links, candidate CRM aliases, and duplicate-contact evidence before changing records.
+- **Business Development (BD):** Use the JSON action queue to suppress prospect outreach collisions such as Corvid’s `ACC-008`. The summary also identifies verified free workspaces such as Vantor for qualification.
 - **CS / Account Leadership:** Review `output/monday_summary.json` and `output/customer_360.json` for portfolio-level ARR, churn exposure, expansion pipeline, and weekly team capacity.
 
 ## What We Would Do Next
 
-- Add automated checks for BD prospect-to-customer outreach collisions and post-contract onboarding stalls (such as Fenwick Labs).
-- Introduce a verified company-domain alias mapping table (e.g., `tessellate.example` to `tessel.example`) and actor-level product login timestamps for finer usage-halt attribution.
+- Store confirmed CRM aliases in a reviewed mapping and ingest product login events for finer usage-gap investigation.
 - Wire the pipeline and `SKILL.md` into scheduled weekly snapshots and Slack/CRM alerts with human-in-the-loop review before external outreach.
+
+**AI prompt summary.** AI was asked to build the SQL-backed Monday briefing, compare skill and raw-CSV answers against the case brief, then implement approved evidence and handoff changes while preserving the billing totals and existing tests.

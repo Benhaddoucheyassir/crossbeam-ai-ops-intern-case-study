@@ -15,8 +15,12 @@ SELECT
     COUNT(*) as total_demand,
     COUNT(*) FILTER (WHERE is_internal_support) AS internal_support_demand,
     COUNT(*) FILTER (WHERE status = 'accepted' AND NOT is_internal_support) AS customer_accepted_seats,
-    COUNT(*) FILTER (WHERE NOT is_internal_support) AS customer_total_demand
+    COUNT(*) FILTER (WHERE NOT is_internal_support) AS customer_total_demand,
+    COUNT(*) FILTER (WHERE status = 'pending_invite' AND NOT is_internal_support) AS customer_pending_invites,
+    COUNT(*) FILTER (WHERE status = 'seat_request' AND NOT is_internal_support) AS customer_seat_requests
 FROM product_users
+WHERE status IN ('accepted', 'pending_invite', 'seat_request')
+    AND (invited_at IS NULL OR invited_at <= CAST('{{snapshot_date}}' AS DATE))
 GROUP BY org_id;
 
 CREATE OR REPLACE TABLE bounced_emails AS
@@ -28,7 +32,8 @@ CREATE OR REPLACE TABLE crm_contact_details AS
 SELECT c.*, lower(trim(c.email)) AS normalized_email,
     b.contact_email IS NOT NULL AS email_bounced
 FROM read_csv_auto('{{data_dir}}/crm_contacts.csv') c
-LEFT JOIN bounced_emails b ON lower(trim(c.email)) = b.contact_email;
+LEFT JOIN bounced_emails b ON lower(trim(c.email)) = b.contact_email
+WHERE c.created_date IS NULL OR c.created_date <= CAST('{{snapshot_date}}' AS DATE);
 
 CREATE OR REPLACE TABLE contact_health AS
 SELECT 
@@ -67,6 +72,10 @@ SELECT rc.billing_customer_id,
         internal_support_demand := COALESCE(ud.internal_support_demand, 0),
         customer_accepted_seats := COALESCE(ud.customer_accepted_seats, 0),
         customer_total_demand := COALESCE(ud.customer_total_demand, 0),
+        customer_pending_invites := CASE WHEN rc.primary_org_id IS NOT NULL THEN COALESCE(ud.customer_pending_invites, 0) END,
+        customer_seat_requests := CASE WHEN rc.primary_org_id IS NOT NULL THEN COALESCE(ud.customer_seat_requests, 0) END,
+        customer_seat_shortfall := CASE WHEN rc.primary_org_id IS NOT NULL
+            THEN GREATEST(COALESCE(ud.customer_total_demand, 0) - rc.billing_seats, 0) END,
         customer_accepted_seat_utilization := ud.customer_accepted_seats::DOUBLE / NULLIF(rc.billing_seats, 0),
         customer_expansion_demand := COALESCE(ud.customer_total_demand > rc.billing_seats, false),
         october_usage_halt := rc.active_users_2026_09 > 0 AND rc.active_users_2026_10 = 0,
@@ -74,12 +83,14 @@ SELECT rc.billing_customer_id,
         data_source_disconnected_with_partners := rc.data_source_connected = false AND rc.partners_connected > 0,
         active_product_admins := ARRAY(
             SELECT struct_pack(user_id := u.user_id, org_id := w.org_id, full_name := u.full_name,
-                email := u.email, verification_status := w.verification_status,
+                email := u.email, verification_status := w.verification_status, status := u.status,
                 is_primary_workspace := w.org_id = rc.primary_org_id,
                 last_login_date := u.last_login_date, login_days_30d := u.login_days_30d)
             FROM workspaces w
             JOIN product_users u ON u.org_id = w.org_id
-            WHERE w.domain = rc.billing_domain AND w.is_dormant = false
+            WHERE w.domain = lower(trim(rc.billing_domain)) AND w.is_dormant = false
+                AND w.verification_status IN ('verified', 'pending')
+                AND (u.invited_at IS NULL OR u.invited_at <= CAST('{{snapshot_date}}' AS DATE))
                 AND u.role = 'admin' AND u.status = 'accepted' AND NOT u.is_internal_support
                 AND u.login_days_30d > 0 AND u.last_login_date <= CAST('{{snapshot_date}}' AS DATE)
                 AND NULLIF(trim(u.email), '') IS NOT NULL
@@ -91,6 +102,8 @@ SELECT rc.billing_customer_id,
         crm_contact_hygiene := ARRAY(
             SELECT struct_pack(contact_id := c.contact_id, email := c.email,
                 first_name := c.first_name, last_name := c.last_name,
+                title := c.title, is_primary := c.is_primary,
+                last_activity_date := CASE WHEN c.last_activity_date <= CAST('{{snapshot_date}}' AS DATE) THEN c.last_activity_date END,
                 left_company := c.left_company, email_bounced := c.email_bounced,
                 possible_duplicate_contact_ids := ARRAY(
                     SELECT d.contact_id FROM crm_contact_details d
@@ -101,7 +114,8 @@ SELECT rc.billing_customer_id,
                     ORDER BY d.contact_id
                 ))
             FROM crm_contact_details c
-            WHERE c.account_id = rc.crm_account_id
+            WHERE c.account_id = rc.crm_account_id AND rc.crm_account_name IS NOT NULL
+                AND NOT rc.crm_is_deleted
             ORDER BY c.contact_id
         )
     )) AS enrichment

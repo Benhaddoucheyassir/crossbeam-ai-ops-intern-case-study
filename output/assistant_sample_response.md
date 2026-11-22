@@ -1,54 +1,48 @@
-﻿Pulling together your briefing now. I've read both files and checked all 17 accounts for flags.
-
-Short version: Start with Brightpath Learning, which is your biggest at-risk renewal ($36,000 ARR, 34 days out) and has a CFO deadline in early December. The same day, fix the Halcyon Travel quote, since that renewal is 14 days out and the problem is mostly internal. Your book is 17 active customers and $492,099.96 ARR, as of 2026-11-16.
-
-This week, in priority order
-
-1. Brightpath Learning Inc: CRITICAL, renews 2026-12-20 (34 days), $3,000 MRR
-- Why: Active users fell from 11 in August to 7 in September to 4 in October (-42.9% September to October), against 30 billing seats (13.3% utilization). `october_usage_drop` is flagged.
-- What they've told you: `ACT-0003` (2026-10-30): a CFO joined for the first time, is running a tools consolidation review before any renewal, and wants to see value in numbers by early December. `ACT-0002` (2026-07-18): Gwen said the partner program was paused during a restructure and that usage would dip over summer. That explanation predates the October drop, so the current cause is unknown.
-- Do: Book a working session with Gwen Ashby and Rafael Ibarra this week. The CFO activity is logged against Rafael's email, but the note doesn't name the CFO, so confirm who it was.
-- Build the value-in-numbers summary before early December.
-- Jules Lund (verified admin, primary workspace, last login 2026-11-01) can tell you what's actually in use. Confirm separately who decides on renewal.
-
-2. Juniper Row: CRITICAL, renews 2027-01-05 (50 days), $625 MRR
-- Why: There were 0 active users in August, September and October (0% of 5 seats), no partners connected and no data source connected. All 5 seats are accepted, so people were invited but aren't using it. Trend and drop fields are null, which means unknown rather than a halt.
-- Context: The only note is `ACT-0023` (2026-01-05), where Eva said they'd get the team started after their busy season. Nothing since.
-- Do: Email Eva Sorensen (clean, and your only contact) and offer an onboarding session. There's no active product admin, so there's no backup contact. Try to find a second person at the company.
-
-3. Halcyon Travel: HIGH (Renewal + Seat Mismatch), renews 2026-11-30 (14 days), $2,000 MRR
-- Why: Billing shows 30 seats and $24,000 ARR. The CRM shows 50 seats and $40,000 ARR, a gap of 20 seats and $16,000. The renewal dates match.
-- What they've told you: `ACT-0021` (2026-10-27): Ilse says they downgraded to 30 seats in June and asked why the invoice is right but the renewal quote says 50.
-- Do: Confirm the June downgrade in billing history.
-- Correct the CRM seats and ARR.
-- Make sure the renewal quote goes out at 30 seats, and tell Ilse Brouwer it's fixed.
-- Usage is flat at 16 active users (53.3% of billing seats), so there's no expansion angle here.
-
-4. Kestrel Payments: HIGH (Expansion), renews 2027-08-01 (258 days), $3,500 MRR
-- Why: Demand is 34 against 25 billing seats: 24 accepted, 6 pending invites and 4 seat requests. One of those is internal support, leaving 33 customer-driven. They've clicked add-seat 9 times in 90 days.
-- What they've told you: `ACT-0014` (2026-11-06): several reps asked for access and are waiting, and Lucia assumed there were seats left.
-- Do: Contact Lucia Ferrante soon, because people are blocked now, and send an add-seats quote (about 8 over, by customer demand).
-
-5. Halvorsen Freight AS: HIGH (Expansion), renews 2027-03-01 (105 days), $4,000 MRR
-- Why: Demand is 25 against 20 seats. They have 3 pending invites and 2 seat requests, and accepted-seat utilization is 100%. Usage is up (16, 17, 18).
-- What they've told you: `ACT-0001` (2026-11-04): two new partner managers start in December, and they asked how to add seats mid-term.
-- Do: Send Hanne Solberg a mid-term add-seats quote before the December starts.
-
+﻿Monday briefing for Sam, snapshot 2026-11-16
+You have 17 active customers and $492.1K in billing ARR. The summary flags 2 critical alerts, 1 renewal/seat mismatch and 2 expansion opportunities. Three renewals fall within 50 days (Halcyon, Brightpath, Juniper Row), worth $67.5K of billing ARR together.
+Do these first (same-day items)
+1. Corvid Retail Group: acknowledge the removal request (yours). Carmen Velasco replied on Nov 12 to a BD cold sequence saying they're already a customer and asking to be taken off the list (ACT-0012). Ian Whitlock also received step 1 (ACT-0010 and ACT-0011, Nov 10). Reply to Carmen, and ask BD to suppress outreach to both addresses. The prospect record ACC-008 is owned by Riley Chen. This is a $72K ARR account, so don't leave it waiting.
+2. Halcyon Travel: hand the quote mismatch to RevOps. Details are below. The deadline is the nearest of any account, so the handoff goes out today.
+3. Then start on Brightpath. It is your top account by priority.
+Accounts that need you this week
+1. Brightpath Learning: CRITICAL, renews 2026-12-20 (34 days), $3,000 MRR, 30 seats
+- October active users were 4, down from 11 in August and 7 in September (-42.9%). 28 seats are accepted, but only 4 people logged in during the last 30 days.
+- On Oct 30 the CFO, Rafael Ibarra (CRM title), joined a call for the first time (ACT-0003). He reported a tools consolidation review before any renewal and wants to see value in numbers by early December.
+- In July, Gwen Ashby said the partner program was paused during a restructure and usage would dip over summer (ACT-0002). Her last CRM activity is Jul 18. Usage has kept falling since then.
+- Next step: Build the value summary for Rafael before early December, and expect the seat count to come up. Ask Gwen whether the pause she described is still the situation. The snapshot doesn't say.
+2. Juniper Row: CRITICAL, renews 2027-01-05 (50 days), $625 MRR, 5 seats
+- Active users were 0 in August, September and October. None of the 5 accepted seats has a recorded login.
+- The workspace exists and is verified, but the data source is not connected.
+- Eva Sorensen (Founder per CRM) is the only contact. Her last note was the Jan 5 signing, saying they'd start after their busy season (ACT-0023). Nothing more recent is recorded.
+- Next step: Contact Eva. Ask whether the team has been invited, and request an intro to whoever will use it. There is no product admin on record to route through, and I wouldn't assign a cause yet.
+3. Halcyon Travel: HIGH (Renewal + Seat Mismatch), renews 2026-11-30 (14 days)
+- Billing shows 30 seats, $24,000 ARR. The CRM shows 50 seats, $40,000 ARR, a gap of 20 seats and $16K.
+- Ilse Brouwer said on Oct 27 that they downgraded to 30 seats in June. She asked why the invoice is right but the renewal quote says 50 (ACT-0021).
+- Next step: RevOps reconciles the CRM and quote against billing. You answer Ilse once there's a corrected quote. Ruben Vos is listed in the CRM as Finance Manager and may be useful to loop in. Confirm his role first.
+4. Halvorsen Freight: HIGH (Expansion), renews 2027-03-01 (105 days), $4,000 MRR
+- All 20 seats are accepted, with 3 pending invites and 2 seat requests. That is 25 in demand, a shortfall of 5.
+- Hanne Solberg said on Nov 4 that two new partner managers start in December and need seats. She asked how to add seats mid-term (ACT-0001).
+- Next step: Send the mid-term add-seat path before the December start dates. Confirm how the 2 named hires overlap with the 5 in demand before you quote.
+5. Kestrel Payments: HIGH (Expansion), renews 2027-08-01 (258 days), $3,500 MRR
+- 24 of 25 seats are accepted. There are 6 pending invites and 4 seat requests, so customer demand is 33 (a shortfall of 8). There were 9 add-seat clicks in 90 days.
+- On Nov 6, Lucia Ferrante's team reported several reps waiting for access, and she assumed seats were left (ACT-0014).
+- Next step: The renewal is far off, but people are waiting now. Call Lucia, identify who is waiting, and size an add-on. Check the overlap between pending invites and requests before quoting 8.
 6. Sable Insurance: HIGH (Contact Hygiene), renews 2027-03-20 (124 days), $2,500 MRR
-- Why: Your only CRM contact, Dana Okafor, hard-bounced twice (`ACT-0015` on 10-14, the renewal-planning email, and `ACT-0016` on 10-29). The account has 0 active contacts.
-- Do: Don't email Dana again. The record doesn't say she left the company, only that the address bounces. Reach out to Femi Adeyemi (`femi.adeyemi@sableinsurance.example`) instead. He's a verified admin on the primary workspace, last login 2026-11-07, with 9 login days in the last 30. That shows product access, not decision authority, so ask him who owns the renewal and update the CRM.
-
+- Your only CRM contact, Dana Okafor, hard-bounced twice (ACT-0015 on Oct 14 and ACT-0016 on Oct 29). Eligible CRM emails: 0. Don't use that address.
+- Next step: Ask Femi Adeyemi for an intro. He is an accepted admin in the verified primary workspace ORG-1013, and he last logged in Nov 7. That shows product access, not decision authority, so confirm that separately.
+- RevOps should also review an identity clue: Dana's contact (CON-1301) is linked to user U-0191, and U-0025 has a pending invite in ORG-1001 (Halvorsen's workspace). It's a clue only, so don't assume a departure or job move.
+Corvid Retail Group: other items (tier is LOW)
+- The latest customer login is Oct 24 (23 days ago), flagged as a recent login gap, while October usage held at 28. Ask the customer or Support to validate it before assuming a cause.
+- Per the Oct 28 note (ACT-0009), Corvid plans to roll co-selling out to its Outdoor subsidiary. Outdoor has its own subscription (BIL-507: 5 seats, $9K ARR, renews Jan 31). Confirm whether the rollout touches that contract.
 Data and contact issues to watch
-
-- Corvid Retail Group ($6,000 MRR / $72,000 ARR): Check `october_usage_halt` and recent activity around BD outreach (`ACT-0011`–`ACT-0013`) to Carmen Velasco and Ian Whitlock so customer contacts aren't cold-emailed and any sudden login stop is investigated.
-- Fenwick Labs ($800 MRR): Contract started 2026-10-01 for 8 seats with no workspace link or kickoff logged yet—follow up to prevent an onboarding stall.
-- Tessel Inc. has no CRM owner or CRM link, yet it's in your book total at $30,000 ARR (12 seats, renews 2027-02-15, 91 days). CRM seats, ARR and renewal date are all unknown. `ACT-0008` was matched only by billing domain, so treat it as context. It says Ama took over as admin and asked why their success manager never reaches out. Get ownership sorted.
-- Quillon Health ($90,000 ARR, your largest) has a possible second workspace, `ORG-1031`. `ACT-0004` (2026-10-02) has Lena saying marketing started its own workspace and she wasn't sure who owns it. Harper Benn, a pending admin there, can help validate it.
-- Marlowe Analytics has a possible old workspace, `ORG-1004`. In `ACT-0005` (2026-08-20), they said the old admin deleted their workspace, they created a new one on 14 Aug, and they asked you to confirm their contract still applies. I can't tell from the snapshot whether that was answered.
-- Arbor Civic: `CON-1401` (`priya.nair@`) and `CON-1402` (`pnair@`) look like duplicates, so don't count them as two contacts. Priya is the sole driver (`ACT-0017`, `ACT-0018`). Noor Garza is another verified admin you could approach, subject to confirming authority.
-- Partner connection checks: Gantry Cloud shows 9 partners connected but the data source is disconnected and there are 0 overlaps. That matches Hugo's complaint in `ACT-0019`.
-- Pinecrest Dental shows 3 partners but the data source is disconnected. Ruth said in `ACT-0020` that the CRM is connected, so ask Pax Benn to verify the discrepancy.
-- Brisk Mobility is disconnected, but `ACT-0022` says CRM connection was planned for the week after 11-11. Recheck after that.
-- Minor: Arbor, Gantry and Pinecrest show tiny ARR differences between billing and CRM (a few cents). That's rounding, so ignore it.
-
-The days-to-renewal figures are anchored to 2026-11-16, so Halcyon is a few days tighter by now. The snapshot doesn't show any outcomes after that date.
+- Tessel Inc. ($30K ARR, 91 days): It has no CRM link. The candidate is ACC-005 Tessellate Systems, whose contact auto-replied on Jul 2 with a new @tessel.example address (ACT-0007). Keep that address unconfirmed until RevOps verifies it. A separate unassigned note from Oct 8 reports a new admin, Ama, asking why no success manager reaches out (ACT-0008). It's matched by billing domain only, so treat it as context.
+- Quillon Health ($90K ARR, your largest): A second, unverified free workspace (ORG-1031) has 14 active users. Lena said in October that marketing started it and she didn't know who owns it (ACT-0004). Its admin, Harper Benn, can help validate ownership. Whether this overlaps with paid seats is unknown.
+- Marlowe Analytics: The CRM points to a dormant workspace that failed verification (ORG-1004), while the active one is ORG-1041, created Aug 14. RevOps should verify before relinking. Nell asked on Aug 20 whether the contract still applies (ACT-0005). I don't see a recorded reply in these files.
+- Arbor Civic: The two "Priya Nair" contacts (CON-1401 and CON-1402, the pnair@ address) look like duplicates, so don't count them as two contacts. Priya is the only person driving the program (ACT-0017 and ACT-0018). Noor Garza is another active admin who could be an introduction route.
+  - Data source not connected (Gantry Cloud, Pinecrest Dental, Brisk Mobility):Gantry: 9 partners connected, 0 overlaps. Hugo reported on Oct 24 that they "see nothing" (ACT-0019). Verify the connection before adding partners.
+  - Pinecrest: Ruth said she connected their CRM (ACT-0020), but the snapshot shows no connection. Verify.
+  - Brisk Mobility: This is consistent with the connection planned for next week (ACT-0022). A quick check next week is enough.
+- Fenwick Labs: No workspace is found, and onboarding is flagged. The contract started Oct 1 for 8 seats, with Iris as admin (ACT-0024). Check provisioning and kickoff with Iris or Kai.
+- Ostrava Robotics: The CRM-to-workspace link is missing. RevOps should verify it before relinking.
+- Outside your book (FYI only): Pellucid Bank (canceled, dormant) and Jess's workspace (Gmail, pending) need nothing from you. Vantor Logistics (ORG-1030) has 9 active users and no CRM or billing record. It is routed to BD as a qualification candidate.
+I can turn this into handoff messages for RevOps and BD, or draft the outreach to Carmen, Ilse or Eva.

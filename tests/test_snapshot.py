@@ -166,3 +166,129 @@ def test_usage_halt_and_support_only_demand(tmp_path):
     assert kestrel['total_demand'] > kestrel['billing_seats']
     assert kestrel['customer_total_demand'] == kestrel['billing_seats']
     assert kestrel['customer_expansion_demand'] is False
+
+
+def test_cross_table_action_evidence(snapshot_output, accounts):
+    corvid = accounts['ORG-1006']
+    assert corvid['october_usage_halt'] is False
+    assert corvid['login_evidence'] == {
+        'accepted_customer_rows': 34,
+        'rows_with_known_login': 34,
+        'users_with_30d_login': 28,
+        'latest_customer_login': '2026-10-24',
+        'days_since_latest_customer_login': 23,
+        'recent_login_gap': True,
+        'derived_login_age_over_45_days': False,
+    }
+    assert [child['billing_customer_id'] for child in corvid['active_billing_children']] == ['BIL-507']
+    assert {row['customer_contact_id'] for row in corvid['prospect_contact_collisions']} == {'CON-0601', 'CON-0602'}
+    assert {activity_id for row in corvid['prospect_contact_collisions'] for activity_id in row['outbound_activity_ids']} == {
+        'ACT-0010', 'ACT-0011'
+    }
+    signals = {signal['code']: signal for signal in corvid['action_signals']}
+    assert signals['suppress_prospect_outreach']['owner'] == 'BD'
+    assert signals['suppress_prospect_outreach']['same_day'] is True
+    assert signals['acknowledge_removal_request']['source_ids'] == ['ACT-0012']
+    assert accounts['ORG-1018']['prospect_contact_collisions'] == []
+    assert accounts['ORG-1018']['inactive_prospect_matches'] == ['ACC-024']
+    assert accounts['ORG-1041']['crm_workspace_link_status'] == 'differs_from_trusted_primary'
+    assert accounts['ORG-1010']['crm_workspace_link_status'] == 'missing'
+
+    rows = json.loads((snapshot_output / 'customer_360.json').read_text())
+    fenwick = next(row for row in rows if row['billing_customer_id'] == 'BIL-525')
+    assert fenwick['onboarding_workspace_missing'] is True
+    assert fenwick['login_evidence'] is None
+    assert fenwick['days_since_crm_contract_start'] == 46
+    assert fenwick['priority_score'] == 'LOW'
+
+
+def test_identity_candidates_and_routing(snapshot_output, accounts):
+    tessel = accounts['ORG-1005']
+    assert tessel['crm_account_id'] is None
+    assert tessel['eligible_crm_email_count'] is None
+    candidate, = tessel['crm_link_candidates']
+    assert candidate['crm_account_id'] == 'ACC-005'
+    assert candidate['candidate_contact_ids'] == ['CON-0502']
+    assert [activity['activity_id'] for activity in candidate['candidate_activities']] == ['ACT-0007', 'ACT-0006']
+    assert [activity['activity_id'] for activity in tessel['recent_activities']] == ['ACT-0008']
+
+    sable = accounts['ORG-1013']
+    assert sable['eligible_crm_email_count'] == 0
+    clue, = sable['cross_workspace_identity_candidates']
+    assert clue['other_user_id'] == 'U-0025'
+    assert clue['other_status'] == 'pending_invite'
+    dana, = sable['crm_contact_hygiene']
+    assert dana['left_company'] is False
+
+    arbor = accounts['ORG-1014']
+    assert arbor['eligible_crm_email_count'] == 2
+    assert any(signal['code'] == 'review_contact_aliases' for signal in arbor['action_signals'])
+    juniper = accounts['ORG-1022']
+    assert juniper['eligible_crm_email_count'] == 1
+    assert juniper['login_evidence']['latest_customer_login'] is None
+    assert juniper['login_evidence']['recent_login_gap'] is None
+
+    summary = json.loads((snapshot_output / 'monday_summary.json').read_text())
+    assert all(signal['same_day'] for signal in summary['action_queue'][:3])
+    unrouted = {row['org_id']: row for row in summary['workspaces_outside_active_book']}
+    assert set(unrouted) == {'ORG-1009', 'ORG-1030', 'ORG-1032'}
+    assert unrouted['ORG-1030']['routing'] == 'bd_qualification_candidate'
+    assert unrouted['ORG-1032']['routing'] == 'outside_active_book'
+    assert unrouted['ORG-1009']['linked_departed_contact_ids'] == ['CON-0901']
+
+
+def test_input_edge_cases_and_repeatable_outputs(tmp_path):
+    data_dir = tmp_path / 'data'
+    shutil.copytree(DATA_DIR, data_dir)
+
+    def update_csv(name, transform):
+        path = data_dir / name
+        transform(pd.read_csv(path)).to_csv(path, index=False)
+
+    def billing_changes(rows):
+        rows.loc[rows['billing_customer_id'] == 'BIL-522', 'current_period_end'] = '2026-11-15'
+        rows.loc[rows['billing_customer_id'] == 'BIL-520', 'seats'] = 17
+        return rows
+
+    def workspace_changes(rows):
+        brightpath = rows[rows['org_id'] == 'ORG-1002']
+        tied_row = brightpath.assign(org_id='ORG-9998')
+        future_row = brightpath.assign(org_id='ORG-9999', created_at='2026-11-17')
+        return pd.concat([future_row, tied_row, rows])
+
+    def user_changes(rows):
+        user = rows[rows['user_id'] == 'U-0267']
+        return pd.concat([
+            rows,
+            user.assign(user_id='U-FUTURE', invited_at='2026-11-17'),
+            user.assign(user_id='U-UNKNOWN', status='unknown'),
+        ])
+
+    update_csv('billing_subscriptions.csv', billing_changes)
+    update_csv('crossbeam_workspaces.csv', workspace_changes)
+    update_csv('crossbeam_users.csv', user_changes)
+    update_csv('crm_accounts.csv', lambda rows: pd.concat([rows, rows[rows['account_id'] == 'ACC-004']]))
+    update_csv('activity.csv', lambda rows: pd.concat([
+        rows,
+        rows[rows['activity_id'] == 'ACT-0016'].assign(
+            activity_id='ACT-FUTURE', activity_date='2026-11-17', contact_email='femi.adeyemi@sableinsurance.example'
+        ),
+    ]))
+    output_dir = tmp_path / 'first'
+    run_pipeline(data_dir.as_posix(), SNAPSHOT_DATE, str(output_dir))
+    records = json.loads((output_dir / 'customer_360.json').read_text())
+    rows = {row['billing_customer_id']: row for row in records}
+    assert len(rows) == len(records) == 17
+    assert rows['BIL-504']['crm_workspace_link_status'] == 'unknown_crm_link'
+    assert rows['BIL-502']['primary_org_id'] == 'ORG-1002'
+    assert {org['org_id'] for org in rows['BIL-502']['related_workspaces']} == {'ORG-1002', 'ORG-9998'}
+    assert rows['BIL-511']['total_demand'] == 34
+    assert rows['BIL-522']['priority_score'] == 'HIGH (Contact Hygiene)'
+    assert rows['BIL-520']['priority_score'] == 'HIGH (Expansion)'
+    assert any(signal['code'] == 'reconcile_commercial_mismatch' for signal in rows['BIL-520']['action_signals'])
+    assert rows['BIL-513']['active_product_admins'][0]['full_name'] == 'Femi Adeyemi'
+
+    repeat_dir = tmp_path / 'repeat'
+    run_pipeline(data_dir.as_posix(), SNAPSHOT_DATE, str(repeat_dir))
+    for path in output_dir.iterdir():
+        assert path.read_bytes() == (repeat_dir / path.name).read_bytes()

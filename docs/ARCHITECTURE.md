@@ -56,7 +56,7 @@ The Crossbeam AI Ops pipeline bridges Billing, CRM, and Product usage data into 
 | **Which org is used for Marlowe?** | `ORG-1041` (Verified). | `ORG-1004` is failed/dormant. The pipeline must select the verified, active workspace. |
 | **Why is Brightpath CRITICAL?** | Renewal <= 90 days AND 13% seat utilization. | Classic churn risk: imminent renewal with low product adoption. |
 | **What about Halcyon Travel?** | `HIGH (Renewal + Seat Mismatch)`. | Renewal in 14 days with 30 vs 50 seat discrepancy between systems. |
-| **Is Pellucid Bank included?** | NO (Excluded). | Subscription status is 'canceled' in billing, even if present in CRM. |
+| **Should BD contact Corvid through ACC-008, and did October usage halt?** | Suppress the prospect sequence and acknowledge ACT-0012. October monthly usage was flat. The latest recorded customer login was 23 days before the snapshot. | Exact-email matches and recorded activity support the handoff. The later login gap needs investigation before assigning a cause. |
 
 4. **Claude Skill (`claude_skill/SKILL.md`)**:
-   - Consumes `output/customer_360.json` and `output/monday_summary.json` to allow Sam to query specific accounts interactively.
+   - Consumes `output/customer_360.json` and `output/monday_summary.json`. The JSON adds evidence and handoffs from `06_action_evidence.sql` and the Python routing rules. Use the five questions above for the assistant check after attaching the generated JSON. Verify that it also keeps unsupported departures, account merges, and login-gap causes out of its recommendations.

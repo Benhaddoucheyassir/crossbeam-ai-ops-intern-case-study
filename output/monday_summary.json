@@ -42,5 +42,297 @@
       "days_to_renewal": 124,
       "billing_mrr": 2500.0
     }
+  ],
+  "monthly_usage_periods": [
+    "2026-08",
+    "2026-09",
+    "2026-10"
+  ],
+  "action_queue": [
+    {
+      "billing_customer_id": "BIL-506",
+      "code": "acknowledge_removal_request",
+      "owner": "Sam",
+      "next_step": "Acknowledge the customer\u2019s recorded removal request.",
+      "same_day": true,
+      "source_ids": [
+        "ACT-0012"
+      ]
+    },
+    {
+      "billing_customer_id": "BIL-506",
+      "code": "suppress_prospect_outreach",
+      "owner": "BD",
+      "next_step": "Suppress prospect outreach to these existing customer addresses.",
+      "same_day": true,
+      "source_ids": [
+        "ACC-008",
+        "CON-0801",
+        "CON-0601",
+        "ACT-0010",
+        "CON-0802",
+        "CON-0602",
+        "ACT-0011",
+        "ACT-0012"
+      ]
+    },
+    {
+      "billing_customer_id": "BIL-520",
+      "code": "reconcile_commercial_mismatch",
+      "owner": "RevOps",
+      "next_step": "Reconcile CRM and renewal quote values against billing.",
+      "same_day": true,
+      "source_ids": [
+        "ACC-020"
+      ]
+    },
+    {
+      "billing_customer_id": "BIL-503",
+      "code": "review_shadow_workspaces",
+      "owner": "RevOps",
+      "next_step": "Validate workspace ownership and verification.",
+      "same_day": false,
+      "source_ids": [
+        "ACC-003",
+        "ORG-1031"
+      ]
+    },
+    {
+      "billing_customer_id": "BIL-504",
+      "code": "review_shadow_workspaces",
+      "owner": "RevOps",
+      "next_step": "Validate workspace ownership and verification.",
+      "same_day": false,
+      "source_ids": [
+        "ACC-004",
+        "ORG-1004"
+      ]
+    },
+    {
+      "billing_customer_id": "BIL-504",
+      "code": "review_workspace_link",
+      "owner": "RevOps",
+      "next_step": "Verify the CRM pointer against the workspace evidence before relinking.",
+      "same_day": false,
+      "source_ids": [
+        "ACC-004",
+        "ORG-1004",
+        "ORG-1041"
+      ]
+    },
+    {
+      "billing_customer_id": "BIL-505",
+      "code": "review_crm_link",
+      "owner": "RevOps",
+      "next_step": "Verify the billing-to-CRM link and account ownership.",
+      "same_day": false,
+      "source_ids": [
+        "ACC-005"
+      ]
+    },
+    {
+      "billing_customer_id": "BIL-506",
+      "code": "review_paid_subsidiary",
+      "owner": "Sam",
+      "next_step": "Confirm whether the planned rollout affects the subsidiary\u2019s own subscription.",
+      "same_day": false,
+      "source_ids": [
+        "BIL-507"
+      ]
+    },
+    {
+      "billing_customer_id": "BIL-506",
+      "code": "review_prospect_collision",
+      "owner": "RevOps",
+      "next_step": "Review the overlapping customer and prospect records.",
+      "same_day": false,
+      "source_ids": [
+        "ACC-006",
+        "ACC-008",
+        "CON-0801",
+        "CON-0601",
+        "ACT-0010",
+        "CON-0802",
+        "CON-0602",
+        "ACT-0011"
+      ]
+    },
+    {
+      "billing_customer_id": "BIL-506",
+      "code": "verify_recent_login_gap",
+      "owner": "Sam / CS",
+      "next_step": "Validate the last-login gap with the customer and product telemetry.",
+      "same_day": false,
+      "source_ids": [
+        "ORG-1006"
+      ]
+    },
+    {
+      "billing_customer_id": "BIL-510",
+      "code": "review_workspace_link",
+      "owner": "RevOps",
+      "next_step": "Verify the CRM pointer against the workspace evidence before relinking.",
+      "same_day": false,
+      "source_ids": [
+        "ACC-010",
+        "ORG-1010"
+      ]
+    },
+    {
+      "billing_customer_id": "BIL-513",
+      "code": "add_contact_coverage",
+      "owner": "Sam",
+      "next_step": "Identify eligible contacts or request an introduction from a product admin.",
+      "same_day": false,
+      "source_ids": [
+        "CON-1301"
+      ]
+    },
+    {
+      "billing_customer_id": "BIL-513",
+      "code": "verify_cross_workspace_identity",
+      "owner": "RevOps",
+      "next_step": "Review the identity clue without assuming a departure or job move.",
+      "same_day": false,
+      "source_ids": [
+        "U-0191",
+        "U-0025"
+      ]
+    },
+    {
+      "billing_customer_id": "BIL-514",
+      "code": "review_contact_aliases",
+      "owner": "RevOps",
+      "next_step": "Verify whether the contact records represent distinct people.",
+      "same_day": false,
+      "source_ids": [
+        "CON-1401",
+        "CON-1402"
+      ]
+    },
+    {
+      "billing_customer_id": "BIL-515",
+      "code": "verify_data_source",
+      "owner": "Sam / CS",
+      "next_step": "Verify the intended source and its connection state.",
+      "same_day": false,
+      "source_ids": [
+        "ORG-1015"
+      ]
+    },
+    {
+      "billing_customer_id": "BIL-518",
+      "code": "verify_data_source",
+      "owner": "Sam / CS",
+      "next_step": "Verify the intended source and its connection state.",
+      "same_day": false,
+      "source_ids": [
+        "ORG-1018"
+      ]
+    },
+    {
+      "billing_customer_id": "BIL-521",
+      "code": "verify_data_source",
+      "owner": "Sam / CS",
+      "next_step": "Verify the intended source and its connection state.",
+      "same_day": false,
+      "source_ids": [
+        "ORG-1021"
+      ]
+    },
+    {
+      "billing_customer_id": "BIL-522",
+      "code": "add_contact_coverage",
+      "owner": "Sam",
+      "next_step": "Identify eligible contacts or request an introduction from a product admin.",
+      "same_day": false,
+      "source_ids": [
+        "CON-2201"
+      ]
+    },
+    {
+      "billing_customer_id": "BIL-525",
+      "code": "review_workspace_link",
+      "owner": "RevOps",
+      "next_step": "Verify the CRM pointer against the workspace evidence before relinking.",
+      "same_day": false,
+      "source_ids": [
+        "ACC-025"
+      ]
+    },
+    {
+      "billing_customer_id": "BIL-525",
+      "code": "verify_onboarding",
+      "owner": "Sam / CS",
+      "next_step": "Verify provisioning and kickoff status with an eligible CRM contact.",
+      "same_day": false,
+      "source_ids": [
+        "ACC-025"
+      ]
+    }
+  ],
+  "workspaces_outside_active_book": [
+    {
+      "org_id": "ORG-1009",
+      "org_name": "Pellucid Bank",
+      "domain": "pellucidbank.example",
+      "verification_status": "verified",
+      "is_dormant": true,
+      "plan_tier": "free",
+      "active_users_2026_10": 0,
+      "latest_customer_login": "2025-06-02",
+      "days_since_latest_customer_login": 532,
+      "crm_account_ids": [
+        "ACC-009"
+      ],
+      "linked_crm_login_flags": [
+        {
+          "crm_account_id": "ACC-009",
+          "no_logins_last_45_days": false
+        }
+      ],
+      "linked_departed_contact_ids": [
+        "CON-0901"
+      ],
+      "billing_subscriptions": [
+        {
+          "billing_customer_id": "BIL-509",
+          "status": "canceled"
+        }
+      ],
+      "routing": "outside_active_book"
+    },
+    {
+      "org_id": "ORG-1030",
+      "org_name": "Vantor Logistics",
+      "domain": "vantor.example",
+      "verification_status": "verified",
+      "is_dormant": false,
+      "plan_tier": "free",
+      "active_users_2026_10": 9,
+      "latest_customer_login": "2026-11-14",
+      "days_since_latest_customer_login": 2,
+      "crm_account_ids": [],
+      "linked_crm_login_flags": [],
+      "linked_departed_contact_ids": [],
+      "billing_subscriptions": [],
+      "routing": "bd_qualification_candidate"
+    },
+    {
+      "org_id": "ORG-1032",
+      "org_name": "Jess's workspace",
+      "domain": "gmail.com",
+      "verification_status": "pending",
+      "is_dormant": false,
+      "plan_tier": "free",
+      "active_users_2026_10": 0,
+      "latest_customer_login": "2026-10-07",
+      "days_since_latest_customer_login": 40,
+      "crm_account_ids": [],
+      "linked_crm_login_flags": [],
+      "linked_departed_contact_ids": [],
+      "billing_subscriptions": [],
+      "routing": "outside_active_book"
+    }
   ]
 }
