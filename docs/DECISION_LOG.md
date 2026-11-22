@@ -1,56 +1,67 @@
-# DECISION_LOG.md: Key Engineering Decisions & AI Guardrails
+﻿# Key Engineering Decisions & AI Guardrails (`DECISION_LOG.md`)
 
-This log records major architectural decisions, edge cases encountered during data ingestion, and corrections made during development.
+This log documents the architectural choices, raw-CSV comparisons, skill/pipeline iterations, and data-hygiene edge cases encountered while building Sam Ortega's Monday AI Ops assistant for the `2026-11-16` snapshot. Rather than hiding discrepancies or tuning scores around raw CSV text, each iteration keeps the deterministic SQL spine intact while tightening data grounding and surfacing edge cases cleanly.
 
-## Decision 1: Customer Universe Anchored in Billing (Not CRM)
-- **Context:** The obvious approach is to start with `crm_accounts.csv`. However, CRM contains prospects, deleted accounts, and former customers (e.g., Pellucid Bank which is canceled in billing), while billing subscriptions represent active revenue.
-- **Action:** Defined the customer universe strictly from `billing_subscriptions.csv` (`status = 'active'`), left-joining CRM metadata and handling unlinked billing records (e.g., Tessel Inc. with no `crm_account_id`).
+---
 
-## Decision 2: Multi-Workspace Verification Rule
-- **Context:** Companies like Quillon Health have multiple workspaces (`ORG-1003` verified vs. `ORG-1031` pending). Blindly summing usage across all workspaces distorts customer health metrics.
-- **Action:** Implemented a window function in `03_workspace_resolution.sql` prioritizing `verified` and non-dormant workspaces as the primary org, while aggregating pending/dormant orgs into a `shadow_count` diagnostic flag for RevOps.
+## 1. Core Architecture & Commercial Grounding
 
-## Decision 3: Renewal Window Anchor
-- **Context:** CRM `renewal_date` can be stale or missing. Billing subscriptions contain the authoritative `current_period_end`.
-- **Action:** Anchored the 90-day renewal window directly on `billing_subscriptions.current_period_end` relative to `--snapshot-date`.
+### Decision 1: Customer Universe Anchored in Billing (`Billing > CRM > Product/Activity`)
+- **Problem:** Starting from `crm_accounts.csv` pulls in prospects, duplicate/unlinked records, and churned accounts (such as Pellucid Bank, which is canceled in billing), while missing active billing subscriptions that lack a clean CRM link (such as Tessel Inc.).
+- **Decision:** Anchor the active customer universe strictly to `billing_subscriptions.csv` (`17` active subscriptions totaling `$492,099.96` in exact billing ARR, or `~$492,000` rounded to the nearest thousand), left-joining CRM metadata and product/activity signals without letting unverified workspaces inflate active counts.
 
-## Decision 4: Contact Hygiene and Bounced Email Filtering
-- **Context:** Account Managers waste time reaching out to contacts who have left the company or whose email addresses bounced.
-- **Action:** Filtered out contacts where `left_company = true` or `bounced = true` (via `activity.csv`), and flagged accounts with `< 2` active contacts for priority outreach.
+### Decision 2: Authoritative Renewal Dates via Billing
+- **Problem:** CRM `renewal_date` fields can drift or go stale compared to actual subscription billing periods.
+- **Decision:** Anchor renewal countdowns and windows (`days_to_renewal`) directly to `billing_subscriptions.current_period_end` relative to `--snapshot-date` (`2026-11-16`).
 
-## Decision 5: Elevation of Halcyon Travel (Renewal + Seat Mismatch)
-- **Context:** Halcyon Travel (`BIL-520`) has an imminent renewal in 14 days (2026-11-30). While usage is stable, there is a significant data discrepancy: Billing shows 30 seats ($2,000 MRR) but CRM shows 50 seats ($40,000 ARR). 
-- **Action:** Elevated this to `HIGH (Renewal + Seat Mismatch)`. This is a "Commercial Blocker"—issuing a renewal quote with the wrong seat count or ARR will cause friction and delays. 
-- **Product Judgment:** We chose to prioritize `CRITICAL` (active churn risks like Brightpath) at the very top, followed immediately by these "Commercial Blockers". This ensures Sam fixes the "paperwork" for imminent renewals before moving to broader engagement tasks.
+### Decision 3: Multi-Workspace Selection & Shadow Workspace Isolation
+- **Problem:** Accounts with multiple workspaces (such as Quillon Health with verified `ORG-1003` vs. pending `ORG-1031`, or Marlowe Analytics with `ORG-1041` vs. legacy/deleted `ORG-1004`) distort health metrics if usage is summed blindly across every workspace.
+- **Decision:** Use a deterministic window function in `src/sql/03_workspace_resolution.sql` to select a primary workspace (preferring verified, non-dormant workspaces) while isolating secondary/pending/unverified workspaces into diagnostic flags (`shadow_count` / workspace status metadata) for RevOps and AM review.
 
-## v1 Deterministic Pipeline vs. Raw-CSV Exploratory Pass (2026-11-21)
+### Decision 4: Contact Hygiene & Halcyon Travel Renewal + Seat Mismatch
+- **Problem:** Outbound renewal outreach breaks down when primary contacts bounce or have left (`left_company = true` or `bounced = true` in `activity.csv`), or when a renewal quote uses stale CRM seat/ARR figures. Specifically, **Halcyon Travel (`BIL-520`)** renews on `2026-11-30` (14 days from `2026-11-16`) with healthy usage, but Billing reflects `30` seats (`$2,000` MRR / `$24,000` ARR) while CRM still shows `50` seats (`$40,000` ARR)—a `20`-seat and `$16,000` ARR gap.
+- **Decision:** Filter out bounced or departed contacts from active contact counts, flag accounts with fewer than two active contacts, and elevate **Halcyon Travel** to `HIGH (Renewal + Seat Mismatch)` right behind `CRITICAL` churn risks so commercial/quote discrepancies are fixed before renewal paperwork goes out.
 
-### Why v1 Kept Core Scoring Deterministic
-- **Active universe (`17` accounts):** Anchored to active billing records in `billing_subscriptions.csv` rather than mixing in free/pending workspaces (`ORG-1030` Vantor Logistics, `ORG-1032` Jess's workspace) or separate subsidiary workspaces (`ORG-1007` Corvid Outdoor).
-- **Avoided fragile free-text rules in SQL:** `activity.csv` contains rich narrative context (calls and emails), so v1 kept scoring and flags deterministic from structured billing, CRM, workspace, user, and activity counts rather than brittle keyword matching.
+---
 
-### Additional Signals Identified for v2
-- **Unanswered / operational `activity.csv` threads:** Marlowe Analytics (`ACT-0005` contract question after `ORG-1004` deletion), Tessel (`ACT-0008` unassigned call with Ama Owusu), Brightpath Learning (`ACT-0003` CFO consolidation review by early December), and Gantry Cloud / Pinecrest Dental (`data_source_connected = false` resulting in `0` overlaps despite active partners).
-- **CRM & contact hygiene anomalies:** Duplicate contact records for Priya Nair at Arbor Civic (`CON-1401` and `CON-1402`), stale domain email for Victor Albescu (`@tessellate.example` vs. `@tessel.example`), departed contact Morgan Lindqvist (`CON-0901` at Pellucid Bank), and BD cold-outreach overlap onto existing customer contacts at Corvid Retail (`ACC-008` vs. `ACC-006`).
-- **User seat hygiene:** Filtering internal/support test accounts (such as any Crossbeam Support user in `ORG-1011` Kestrel Payments) when computing true customer seat utilization.
+## 2. Activity Context & Raw-CSV Comparison Iterations
 
-## Raw-CSV Comparison & Activity Context Enrichment (2026-11-21)
+### Iteration A: Attaching `recent_activities` Without Overriding Deterministic Scores
+- **Difference Observed (Pipeline vs. Raw-CSV Run):** A direct pass over the raw CSVs surfaced rich narrative context from `activity.csv`—such as Ilse Brouwer's `2026-10-27` note on Halcyon's June downgrade, Gwen Ashby's `2026-07-18` partner-program pause at Brightpath, the `2026-10-30` CFO consolidation-review note at Brightpath, Eva Sorensen's `2026-01-05` post-busy-season note at Juniper Row, and Ama Owusu's `2026-10-08` unassigned call for Tessel—whereas an early pipeline draft only exposed aggregate counts and flags.
+- **Improvement Made:** Attached `recent_activities` (up to five activities on or before `--snapshot-date`) to `customer_360.json`, matching by `crm_account_id` with a billing-domain fallback for unlinked records like Tessel Inc., while keeping priority tiers and scores deterministic in SQL rather than relying on fragile keyword rules.
 
-### What We Compared
-- Compared the deterministic DuckDB/SQL pipeline (`17` active billing accounts, `Billing > CRM > Product/Activity` trust hierarchy) against a direct raw-CSV pass across `billing_subscriptions.csv`, `crm_accounts.csv`, `crm_contacts.csv`, `crossbeam_workspaces.csv`, `crossbeam_users.csv`, and `activity.csv`.
+### Iteration B: Skill & Grounding Upgrade (Preventing Raw-CSV Overclaims)
+- **Difference Observed (Raw-CSV Prose vs. Skill-Governed Briefing):** When a raw-CSV pass wrote narrative prose directly, it occasionally over-interpreted evidence—for example, treating a bounced email as proof that Dana Okafor had left Sable Insurance, assuming Rafael Ibarra was confirmed as the named CFO in the note, or treating raw CSV observations with the same certainty as structured billing/product state.
+- **Improvement Made:** Updated `claude_skill/SKILL.md` to enforce strict grounding rules:
+  1. Pull all counts, MRR/ARR figures, renewal dates, and priority labels from structured JSON fields (`billing_mrr`, `billing_arr`, `billing_seats`, `current_period_end`, `days_to_renewal`, `priority_score`), explicitly labeling `crm_seats`, `crm_arr`, and `crm_renewal_date` when explaining mismatches.
+  2. Attribute qualitative notes to `activity_id` and `activity_date`, treat `billing_domain` matches as contextual, and separate verified facts from unknowns or unverified claims.
 
-### Why Core Scoring Stayed Deterministic (and Why `17` vs. `18` Differed)
-- Kept the active customer universe anchored to active billing subscriptions (`17` accounts) and kept priority scores/flags deterministic rather than inferring metrics or counts from raw CSV text or secondary/non-customer workspaces (`ORG-1007` Corvid Outdoor, `ORG-1030` Vantor Logistics, `ORG-1032` Jess's workspace).
-- Avoided fragile keyword/text rules inside SQL for `activity.csv` notes.
+---
 
-### Improvement Added vs. Future v2 Scope
-- **Added now:** Attached `recent_activities` context from `data/activity.csv` to `customer_360.json` (matched by `crm_account_id` with domain fallback for unlinked records like `Tessel Inc.`) and instructed `claude_skill/SKILL.md` to use those notes strictly as qualitative context without overriding structured metrics or priority scores.
-- **Deferred to v2:** Filtering internal/support test accounts out of seat utilization (e.g., internal support account in `ORG-1011` Kestrel Payments), surfacing unconnected data sources with active partners (`ORG-1015` Gantry Cloud, `ORG-1018` Pinecrest Dental), flagging duplicate CRM contacts (`CON-1401`/`CON-1402` Priya Nair) or stale domain emails (`victor.albescu@tessellate.example`), and checking BD prospect outreach collisions against active customer contacts (`ACC-008` vs. `ACC-006` Corvid Retail).
+## 3. Cross-Table Hygiene Enrichment & Second Rerun (`2026-11-16`)
 
-## Snapshot enrichment for 2026-11-16
+Comparing the structured briefing against the raw-CSV pass highlighted specific cross-table signals that needed first-class fields in `customer_360.json` and `monday_summary.json` so the assistant could surface them deterministically:
 
-- **Source hierarchy.** Billing defines the 17 active subscriptions, $492,099.96 in exact billing ARR ($492,000 to the nearest thousand), purchased seats, and renewal dates. CRM supplies linked commercial and contact context. Product and activity supply workspace evidence and qualitative context. The CSV shape and SQL priority rules stay compatible. The JSON adds structured enrichment and the Monday summary adds exact `total_billing_arr`.
-- **Seat hygiene.** Classify normalized `@crossbeam.example` emails and the exact normalized name “Crossbeam Support” as internal support. Kestrel’s `U-0267` counts in legacy demand and is excluded from customer demand and accepted customer seats. Compare adjusted demand directly to billing seats. Adjusted accepted-seat utilization uses customer accepted seats divided by billing seats. The monthly active-user counts are workspace aggregates without historical actor attribution, so retain the October MAU utilization as reported.
-- **Backup contacts.** Include accepted customer admins with a recorded login by the snapshot and positive 30-day login days, excluding exact normalized addresses that bounced or belong to departed CRM contacts. Join non-dormant workspaces by billing domain and identify the primary workspace. Femi Adeyemi and Jules Lund are primary-workspace candidates. Harper Benn is a candidate for pending `ORG-1031`, which stays separate from Quillon’s primary usage metrics. Arbor’s `CON-1401` and `CON-1402` share a surname and first initial, so surface them as possible duplicates and give Sam Noor Garza as a distinct product admin candidate. Legacy CRM counts still count eligible rows.
-- **Usage and connections.** An October halt means positive September usage followed by zero October usage. An October drop means a decline greater than 20%. The comparison has monthly resolution. A disconnected source with positive connected partners exposes the setup issue directly. Gantry and Pinecrest have zero overlapping partners, and Pinecrest’s meeting note reports a connection that Sam should verify against the product state.
-- **Activity provenance.** Keep up to five activities on or before the snapshot and expose the original CRM account ID, match basis, and bounce status. Corvid’s `ACC-008` outreach is domain-matched context for `ACC-006`. Tessel’s `ACT-0008` attaches through its billing domain. The older Tessellate correspondence requires a verified alias or CRM link before attribution to Tessel. The pipeline leaves that alias unresolved.
+1. **Internal Support Seat Isolation (`cs-support@crossbeam.example` / `U-0267`):**
+   - **Difference Observed:** At Kestrel Payments, raw seat counts (`25` seats; `34` total demand across `24` accepted, `6` pending invites, and `4` seat requests) included an internal Crossbeam Support account (`U-0267` / `cs-support@crossbeam.example`).
+   - **Improvement Made:** Added support-seat classification (`@crossbeam.example` and normalized `"Crossbeam Support"`) to compute `total_demand`, `customer_total_demand`, `internal_support_demand`, `customer_expansion_demand`, and `customer_accepted_seat_utilization` alongside raw counts, while keeping workspace-level October MAU utilization as reported because monthly active-user counts lack historical actor attribution.
+2. **Backup Product Admins by Workspace:**
+   - **Difference Observed:** The raw-CSV pass identified active product admins from `crossbeam_users.csv` when CRM contacts bounced, were duplicated, or were missing—such as **Femi Adeyemi** at Sable Insurance (where Dana Okafor's emails bounced), **Jules Lund** at Brightpath Learning, **Harper Benn** on Quillon Health's `ORG-1031` workspace, and **Noor Garza** at Arbor Civic.
+   - **Improvement Made:** Surfacing eligible product admins per workspace (with workspace ID, verification status, and activity recency) in `customer_360.json`, while instructing `SKILL.md` that product admin access proves product usage—not renewal decision-making authority—and that possible duplicate CRM contacts (such as Arbor's `CON-1401` and `CON-1402`) must be verified rather than counted as separate outreach coverage.
+3. **Usage Drops/Halts, Disconnected Data Sources & Activity Provenance:**
+   - **Difference Observed:** A broken `no_logins_last_45_days` flag was misleading, sudden activity drops/halts needed explicit monthly trend context, unconnected data sources with active partners explained "0 overlaps" complaints (Gantry Cloud and Pinecrest Dental), and unlinked/alias records needed transparent provenance.
+   - **Improvement Made:** Added structured `october_usage_drop` / `october_usage_halt` signals (based on monthly counts and `usage_trend_pct`, leaving null when unknown rather than guessing), `data_source_disconnected_with_partners` alongside `partners_connected` and `partners_with_overlaps`, `total_billing_arr` in `monday_summary.json`, and `match_basis` / `original_crm_account_id` / bounce flags on `recent_activities`. All `13` snapshot tests in `tests/test_snapshot.py` pass after regenerating `./output` for `2026-11-16`.
+
+---
+
+## 4. Uncaught Easter Eggs (Watch-Outs) & Next Steps (`v2`)
+
+Even with deterministic enrichment in place, a few cross-table easter eggs and ambiguities warrant explicit operational care or future pipeline work:
+
+- **Corvid Retail Group (`ACC-006`) vs. Duplicate Prospect `ACC-008` & Corvid Outdoor (`ORG-1007`):** BD cold-outreach activity (`ACT-0011`–`ACT-0013`) hit existing customer contacts (Carmen Velasco and Ian Whitlock) via duplicate prospect record `ACC-008`, alongside an `october_usage_halt` signal and potential expansion interest toward separate customer **Corvid Outdoor LLC** (`ORG-1007`). Requires BD suppression, RevOps deduplication/hygiene check, and AM follow-up.
+- **Fenwick Labs Onboarding Stall:** Contracted for `2026-10-01` (8 seats) with no linked workspace, usage data, or logged kickoff by `2026-11-16`.
+- **Unresolved Domain Alias & Duplicate CRM Records:** Older `@tessellate.example` correspondence for **Tessel Inc.** requires a verified alias or CRM link before attribution to Tessel, and **Arbor Civic** duplicate contacts (`CON-1401` / `CON-1402`) still require CRM cleanup confirmation.
+- **Next Steps (`v2`):**
+  1. Add automated pipeline checks/flags for BD prospect-to-customer email/account collisions (`ACC-008` vs. active customer accounts) and stalled post-start onboarding (such as Fenwick Labs).
+  2. Maintain a verified company-domain alias mapping table (e.g., `tessellate.example` -> `tessel.example`) so historical correspondence can be linked with explicit provenance.
+  3. Add actor-level login/activity timestamps in upstream product data so sudden login halts can distinguish true usage stops from reporting lags.
